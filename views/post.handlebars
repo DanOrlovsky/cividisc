@@ -1,0 +1,9 @@
+
+
+{{ posts.title }}
+
+{{#if posts.children}}
+    {{#each posts.children}}
+        {{> child}}
+    {{/each}}
+{{/if}}

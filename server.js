@@ -24,12 +24,19 @@ app.use(session({ secret: "civiDiscSession", saveUninitialized: true, resave: tr
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./controllers/homeController')(app, passport);
-require('./controllers/authController')(app, passport);
-
 require('./config/passport.js')(passport, db.User);
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    //res.locals.user.notifications = db.Notification.findAll({ where: { userId: req.user.id }});
+    next();
+});
+
+
+require('./controllers/homeController')(app, passport);
+require('./controllers/userController')(app, passport);
+require('./controllers/postController')(app, passport);
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: true}).then(() => {
     app.listen(port);
 })
