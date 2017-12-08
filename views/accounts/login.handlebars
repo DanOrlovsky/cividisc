@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="col-md-5 login-page">
+        <h2><i class="fa fa-sign-in"></i> Login Page</h2>
+
+        {{#if message}} 
+            <h4 class="alert alert-danger">{{message}}</h4>
+        {{/if}}
+
+        <form action='/login' method='POST'>
+            <div class="form-group">
+                <label for="inputEmail">Email Address</label>
+                <input type="email" class="form-control" name="inputEmail" id="inputEmail" aria-describedby="inputEmailDesc" placeholder="Enter Email">
+                <small id="inputEmailDesc" class="form-text text-muted">Enter the Email you used to sign up.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" name="inputPassword" id="inputPassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p></p>
+        <p>
+            Need an account? <a href="/signup">Sign Up!</a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+
+{{#unless user}}
+<div class="row">
+    <div class="container">
+        <div class="jumbotron">
+            <h1><i class="fa fa-lock"></i> Node Users</h1>
+            <p>
+                A user authentication app for use with other projects.
+            </p>
+            <p>
+                Uses NodeJs, Express, Handlebars, and Sequelize.
+            </p>
+            <p>
+                GitHub: <a href="https://github.com/DanOrlovsky/node-user">https://github.com/DanOrlovsky/node-user</a>
+            </p>
+            <a href="/login">Login</a>
+        </div>
+    </div>
+</div>
+{{/unless}}
+
+{{#if user}}
+<div class="container">
+
+    <a href="/dashboard">View Your Dashboard</a>
+
+    <div class="col-md-8 login-page">
+        {{#if postMessage}} 
+            <h2 class="alert alert-success">{{ postMessage}}</h2>
+        {{/if}}
+        <h2><i class="fa fa-sign-in"></i> Add Item!</h2>
+
+        Welcome back, {{ user.email }}!
+
+        <form action="/api/items/add" method="POST" id="add-item">
+            <div class="form-group">
+                <label for="txtPost">Item</label>
+                <input type="text" class="form-control" name="txtPost" id="txtPost" placeholder="Text to Post">
+            </div>
+            <div class="form-group">
+                <label for="txtUrl">Url</label>
+                <input type="text" class="form-control" name="txtUrl" id="txtUrl">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    {{#each items }}
+        {{> link }}
+    {{/each}}
+</div>
+{{/if}}
