@@ -3,8 +3,12 @@ const db = require('../models');
 
 module.exports = function (app, passport) {
     app.get('/', (req, res) => {
-        res.render('index');
-    })
+        // Get top level Posts
+        db.Post.findAll({where: { parentId: null }}).then((posts) => {
+            res.render('index', { posts: posts });
+        });
+    });
+
 /*
     app.get('/', function (req, res) {
         console.log("User", req.user);

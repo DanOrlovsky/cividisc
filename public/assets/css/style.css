@@ -1,0 +1,16 @@
+body {
+    margin-top: 20px;
+}
+
+
+.login-page {
+    float: none;
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+    background-color: #eeeeee;
+    
+}
+#inputEmail, #inputPassword {
+    max-width: 350px;
+}

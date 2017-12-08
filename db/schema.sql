@@ -1,1 +1,2 @@
-CREATE DATABASE civiDisc_db;
+use civiDisc_db;
+select * from users;

@@ -15,6 +15,15 @@
             </p>
             <a href="/login">Login</a>
         </div>
+        {{#unless posts}}
+            <h2>Nothing to show</h2>
+        {{/unless}}
+        {{#if posts}}
+            {{#each posts}}
+                <a href="/posts/{{id}}">{{ title }}</a>
+            {{/each}}
+        {{/if}}
+        
     </div>
 </div>
 {{/unless}}
@@ -32,21 +41,17 @@
 
         Welcome back, {{ user.email }}!
 
-        <form action="/api/items/add" method="POST" id="add-item">
+        <form action="/api/posts/add" method="POST" id="add-item">
             <div class="form-group">
-                <label for="txtPost">Item</label>
-                <input type="text" class="form-control" name="txtPost" id="txtPost" placeholder="Text to Post">
+                <label for="txtPost">Title</label>
+                <input type="text" class="form-control" name="title" id="txtPost" placeholder="Text to Post">
             </div>
             <div class="form-group">
                 <label for="txtUrl">Url</label>
-                <input type="text" class="form-control" name="txtUrl" id="txtUrl">
+                <input type="text" class="form-control" name="url" id="txtUrl">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
-    {{#each items }}
-        {{> link }}
-    {{/each}}
 </div>
 {{/if}}

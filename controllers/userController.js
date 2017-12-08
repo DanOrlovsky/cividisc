@@ -1,3 +1,4 @@
+const isLoggedIn = require('../helpers/authHelper');
 
 module.exports = function(app, passport) { 
  
@@ -33,10 +34,11 @@ module.exports = function(app, passport) {
 
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
-            if(err) return next(err);
+            if(err) { console.log(err); return next(err) };
             if(!user) {
                 return res.render('accounts/login', { message: info.message });
             }
+            console.log(user);
             req.logIn(user, function(err) { 
                 if(err) return next(err);
                 return res.redirect('/');
