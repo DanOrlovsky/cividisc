@@ -10,6 +10,10 @@ const exphbs = require('express-handlebars');
 
 var db = require('./models');
 
+Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
+if(!Date.now) Date.now = function() { return new Date(); }
+Date.time = function() { return Date.now().getUnixTime(); }
+
 
 app.use(express.static("public"));
 app.use(morgan('dev'));
@@ -37,6 +41,6 @@ require('./controllers/userController')(app, passport);
 require('./controllers/postController')(app, passport);
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync().then(() => {
     app.listen(port);
 })
