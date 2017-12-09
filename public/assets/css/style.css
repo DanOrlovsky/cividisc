@@ -13,3 +13,12 @@ body {
 #inputEmail, #inputPassword {
     max-width: 350px;
 }
+
+#discup {
+    max-width: 30px;
+    margin-bottom: 10px;
+}
+
+#discdown {
+    max-width: 30px;
+}

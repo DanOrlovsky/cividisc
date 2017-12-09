@@ -36,8 +36,13 @@
             </li>
             {{/unless}}
             <li class="nav-item">
-              <a class="nav-link" href="">Post</a>
+              <a class="nav-link" href="/post">Post</a>
             </li>
+            {{#if user}}
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            {{/if}}
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -46,7 +51,7 @@
       </nav>
     </div>
         {{#if user}}
-            <h2>USER EMAIL: {{ user.email }} </h2>
+
         {{/if}}
         {{{ body }}}
     </body>
