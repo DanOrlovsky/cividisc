@@ -1,20 +1,8 @@
 
 {{#unless user}}
-<div class="row">
-    <div class="container">
-        <div class="jumbotron">
-            <h1><i class="fa fa-lock"></i> Node Users</h1>
-            <p>
-                A user authentication app for use with other projects.
-            </p>
-            <p>
-                Uses NodeJs, Express, Handlebars, and Sequelize.
-            </p>
-            <p>
-                GitHub: <a href="https://github.com/DanOrlovsky/node-user">https://github.com/DanOrlovsky/node-user</a>
-            </p>
-            <a href="/login">Login</a>
-        </div>
+
+<div class="container">
+<div class="jumbotron">
         {{#unless posts}}
             <h2>Nothing to show</h2>
         {{/unless}}
@@ -23,9 +11,9 @@
                 <a href="/posts/{{id}}">{{ title }}</a>
             {{/each}}
         {{/if}}
-        
-    </div>
+</div> 
 </div>
+
 {{/unless}}
 
 {{#if user}}
