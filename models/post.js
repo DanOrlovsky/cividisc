@@ -22,6 +22,14 @@ module.exports = function(sequelize, DT) {
             type: DT.INTEGER,
             allowNull: false,
         },
+        postDate: {
+            type: DT.INTEGER,
+            allowNull: false,
+        },
+        postLife: {
+            type: DT.INTEGER,
+            allowNull: false,
+        },
         parentId: DT.INTEGER,
         upVotes: DT.INTEGER,
         downVotes: DT.INTEGER,
