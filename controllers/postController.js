@@ -53,6 +53,7 @@ module.exports = function (app, passport) {
         req.user.usePoints -= 5;
         if(req.user.usePoints > 0) {
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
+                req.body['postDate'] = Date.now().getUnixTime();
                 db.Post.create(req.body).then(function (data) {
                     return res.redirect('/posts/' + data.id);
                 }).catch(function (err) {
