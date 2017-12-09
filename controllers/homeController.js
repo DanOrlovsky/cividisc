@@ -8,5 +8,9 @@ module.exports = function (app, passport) {
             res.render('index', { posts: posts });
         });
     });
-
+    app.get('/closed', (req, res) => {
+        db.Post.findAll().then((posts) => {
+            
+        })
+    })
 }

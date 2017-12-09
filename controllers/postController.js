@@ -52,6 +52,7 @@ module.exports = function (app, passport) {
         req.body['userId'] = req.user.id;
         req.user.usePoints -= 5;
         if(req.user.usePoints > 0) {
+
             db.User.update(req.user).then(function (data) {
                 req.body['postDate'] = Date.now().getUnixTime();
                 db.Post.create(req.body).then(function (data) {
@@ -62,7 +63,7 @@ module.exports = function (app, passport) {
             });
         } else {
             req.user+=5;
-            return res.send({ message: "You do not have enough usePoints to make this happen."} );
+            return res.send({ message: "You do not have enough discs to make this happen."} );
         }
     });
 
@@ -74,11 +75,12 @@ module.exports = function (app, passport) {
                 text: "A user has replied to your post!", 
                 userId: firstPost.userid, 
                 isRead: false,
-                url: '/posts/' + replyToId }).then(() => {
-                    db.Post.create(req.body).then((newPost) => {
-                        return res.redirect('/posts/' + newPost.id);
-                    })
+                url: '/posts/' + replyToId 
+            }).then(() => {
+                db.Post.create(req.body).then((newPost) => {
+                    return res.redirect('/posts/' + newPost.id);
                 })
+            })            
         })
     });
     
