@@ -1,3 +1,5 @@
+
+
 var authHelper = {
     userHasRep: function(db, userId) {
         return new Promise(function(resolve, reject) {

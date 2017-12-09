@@ -54,6 +54,8 @@ module.exports = function(sequelize, DT) {
         // REPUTATION
         rep: DT.INTEGER,
         
+        usePoints: DT.INTEGER,
+
         // ABOUT
         about: DT.STRING,
         

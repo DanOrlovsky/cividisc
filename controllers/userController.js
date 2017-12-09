@@ -20,6 +20,7 @@ module.exports = function(app, passport) {
         var user = req.body;
         if(user.email === '' || user.password==='' || user.firstname==='' || user.lastname==='') 
             return res.render('accounts/signup', { message: "Please fill out the form completely" });
+        
         passport.authenticate('local-signup', (err, user, info) => {
             if(err) return next(err)
             if(!user) {
