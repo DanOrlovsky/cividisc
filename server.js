@@ -27,7 +27,7 @@ app.set('view engine', 'handlebars');
 app.use(session({ secret: "civiDiscSession", saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(Date);
 require('./config/passport.js')(passport, db.User);
 app.use(function(req, res, next) {
     res.locals.user = req.user;
@@ -39,8 +39,9 @@ app.use(function(req, res, next) {
 require('./controllers/homeController')(app, passport);
 require('./controllers/userController')(app, passport);
 require('./controllers/postController')(app, passport);
+require('./controllers/voteController')(app, passport);
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync().then(() => {
     app.listen(port);
 })
