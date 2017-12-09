@@ -29,8 +29,6 @@ function getAllPosts(post) {
     });
 };
 
-
-
 module.exports = function (app, passport) {
     app.get('/posts/:id', (req, res) => {
         db.Post.findOne({
@@ -47,6 +45,13 @@ module.exports = function (app, passport) {
         })
     });
 
+    app.get('/post', (req, res) => {
+        db.Topic.findAll().then((data) => {
+            return res.render("newPost", {
+                topics: data
+            });
+        });
+    });
 
     app.post('/api/posts/add', authHelper.isLoggedIn, (req, res) => {
         req.body['userId'] = req.user.id;
