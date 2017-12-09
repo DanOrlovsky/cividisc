@@ -1,45 +1,17 @@
 
-{{#unless user}}
-
+{{!-- {{#unless user}} --}}
 <div class="container">
-<div class="jumbotron">
+
         {{#unless posts}}
             <h2>Nothing to show</h2>
         {{/unless}}
         {{#if posts}}
             {{#each posts}}
-                <a href="/posts/{{id}}">{{ title }}</a>
+            {{> post}}
             {{/each}}
         {{/if}}
-</div> 
+
 </div>
+{{!-- {{/unless}} --}}
 
-{{/unless}}
 
-{{#if user}}
-<div class="container">
-
-    <a href="/dashboard">View Your Dashboard</a>
-
-    <div class="col-md-8 login-page">
-        {{#if postMessage}} 
-            <h2 class="alert alert-success">{{ postMessage}}</h2>
-        {{/if}}
-        <h2><i class="fa fa-sign-in"></i> Add Item!</h2>
-
-        Welcome back, {{ user.email }}!
-
-        <form action="/api/posts/add" method="POST" id="add-item">
-            <div class="form-group">
-                <label for="txtPost">Title</label>
-                <input type="text" class="form-control" name="title" id="txtPost" placeholder="Text to Post">
-            </div>
-            <div class="form-group">
-                <label for="txtUrl">Url</label>
-                <input type="text" class="form-control" name="url" id="txtUrl">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
-{{/if}}
