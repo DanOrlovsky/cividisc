@@ -50,9 +50,9 @@ module.exports = function (app, passport) {
 
     app.post('/api/posts/add', authHelper.isLoggedIn, (req, res) => {
         req.body['userId'] = req.user.id;
-        req.user.rep -= 5;
-        if(req.user.rep > 0) {
-            db.User.update(req.user).then(function (data) {
+        req.user.usePoints -= 5;
+        if(req.user.usePoints > 0) {
+            db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
                 db.Post.create(req.body).then(function (data) {
                     return res.redirect('/posts/' + data.id);
                 }).catch(function (err) {
@@ -61,7 +61,7 @@ module.exports = function (app, passport) {
             });
         } else {
             req.user+=5;
-            return res.send({ message: "You do not have enough rep to make this happen."} );
+            return res.send({ message: "You do not have enough discs to make this happen."} );
         }
     });
 
@@ -73,11 +73,12 @@ module.exports = function (app, passport) {
                 text: "A user has replied to your post!", 
                 userId: firstPost.userid, 
                 isRead: false,
-                url: '/posts/' + replyToId }).then(() => {
-                    db.Post.create(req.body).then((newPost) => {
-                        return res.redirect('/posts/' + newPost.id);
-                    })
+                url: '/posts/' + replyToId 
+            }).then(() => {
+                db.Post.create(req.body).then((newPost) => {
+                    return res.redirect('/posts/' + newPost.id);
                 })
+            })            
         })
     });
     
