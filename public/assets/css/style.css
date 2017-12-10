@@ -1,5 +1,5 @@
-body {
-    margin-top: 60px;
+#page-content {
+    margin-top: 180px;
 }
 
 .login-page {
@@ -14,11 +14,15 @@ body {
     max-width: 350px;
 }
 
-#discup {
+.discup {
     max-width: 30px;
     margin-bottom: 10px;
 }
 
-#discdown {
+.discdown {
     max-width: 30px;
+}
+
+.post {
+    margin-top: 10px;
 }

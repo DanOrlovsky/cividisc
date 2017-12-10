@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session')
 const exphbs = require('express-handlebars');
 
-
 var db = require('./models');
 
 Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
@@ -42,6 +41,6 @@ require('./controllers/postController')(app, passport);
 require('./controllers/voteController')(app, passport);
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     app.listen(port);
 })

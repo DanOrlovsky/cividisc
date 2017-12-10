@@ -1,6 +1,8 @@
 const db = require('../models');
 const authHelper = require('../helpers/authHelper');
 const _ = require('underscore');
+const moment = require("moment");
+
 
 function getAllPosts(post) {
     return new Promise(function (resolve, reject) {
@@ -36,14 +38,15 @@ module.exports = function (app, passport) {
             }
         }).then((post) => {
             getAllPosts(post).then((data) => {
-                return res.render("post", {
-                    posts: data
+                return res.render("viewPost", {
+                    post: data
                 });
             })
         })
     });
 
-    app.get('/post', (req, res) => {
+    // GET THE newPost form
+    app.get('/post/add', (req, res) => {
         db.Topic.findAll().then((data) => {
             return res.render("newPost", {
                 topics: data
@@ -56,8 +59,11 @@ module.exports = function (app, passport) {
         req.user.usePoints -= 5;
         if(req.user.usePoints > 0) {
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
-                req.body['postDate'] = Date.now() / 1000;
+                req.body['postDate'] = moment().unix();
                 req.body['postLife'] = 60000*90;
+                req.body['isPublished'] = true;
+                req.body['upVotes'] = 0;
+                req.body['downVotes'] = 0;
                 db.Post.create(req.body).then(function (data) {
                     return res.redirect('/posts/' + data.id);
                 }).catch(function (err) {
@@ -94,12 +100,12 @@ module.exports = function (app, passport) {
             }
         }).then((data) => {
             if (data.userId == req.user.id) {
-                db.Post.destroy({
+                db.Post.update({ isPublished: false},{
                     where: {
                         id: req.params.id
                     }
                 }).then((data) => {
-                    return res.end();
+                    return res.json({ message: "Your post has been unpublished."});
                 })
             }
         })

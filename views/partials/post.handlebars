@@ -1,16 +1,18 @@
 
 
-        <div class="row">
+        <div class="row post">
 
             <div class="col-2 col-lg-1">
-               <img src="assets/icons/good.png" alt="discUp" id="discup">
+               <a href="" class="vote-up" data-id="{{ id }}"><img src="assets/icons/good.png" alt="discUp" class="discup"></a>
                <br>
-               <img src="assets/icons/bad.png" alt="discDown" id="discdown">
+               <span class="upvotes{{id}}">{{ upVotes }}</span><br>
+               <span class="downvotes{{id}}">{{ downVotes}}</span><br>
+               <a href="" class="vote-down" data-id="{{id}}"><img src="assets/icons/bad.png" alt="discDown" class="discdown"></a>
             </div>
 
             <div class="col-10">
-                <h2>{{ title }}</h2>
-               {{#if url}}<h4><a href=""></a></h4>{{/if}}
+                <h2><a href="/post/{{id}}">{{ title }}</h2></a>
+               {{#if url}}<h6><a href="{{url}}">{{url}}</a></h6>{{/if}}
                 <p>{{ comment}}</p>
             </div>
 
