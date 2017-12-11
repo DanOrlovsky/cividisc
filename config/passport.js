@@ -47,6 +47,8 @@ module.exports = function (passport, user) {
                         password: userPassword,
                         firstName: req.body.firstname,
                         lastName: req.body.lastname,
+                        displayName: req.body.displayName,
+                        isActive: true,
                         rep: 0,
                         usePoints: 100,
                         upVotes: 0,

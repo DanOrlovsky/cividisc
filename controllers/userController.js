@@ -1,4 +1,5 @@
-const isLoggedIn = require('../helpers/authHelper');
+const authHelper = require('../helpers/authHelper');
+const db = require('../models');
 
 module.exports = function(app, passport) { 
  
@@ -8,8 +9,10 @@ module.exports = function(app, passport) {
     app.get('/login', function(req, res) { 
         res.render('accounts/login');
     });
-    app.get('/dashboard', function(req, res) {
-        res.render('accounts/dashboard', req.user);
+    app.get('/dashboard', authHelper.isLoggedIn, function(req, res) {
+        db.Post.findAll({ where: { userId: req.user.id }}).then((posts) => {
+            res.render('accounts/dashboard', { posts: posts });
+        })
     });
     app.get('/logout', function(req, res) {
         req.session.destroy(function(err) {

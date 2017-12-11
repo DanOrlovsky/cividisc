@@ -31,22 +31,27 @@ function getAllPosts(post) {
 };
 
 module.exports = function (app, passport) {
-    app.get('/posts/:id', (req, res) => {
+    app.get('/post/view/:id', (req, res) => {
         db.Post.findOne({
             where: {
                 id: req.params.id
             }
         }).then((post) => {
-            getAllPosts(post).then((data) => {
-                return res.render("viewPost", {
-                    post: data
-                });
+            db.User.findOne({ where: { id: post.userId }}).then((user) => {
+                post.userName = user.displayName;
+                post.isClosed = (moment().unix() < post.postDate + post.postLife);
+                getAllPosts(post).then((data) => {
+                    return res.render("viewPost", {
+                        post: data
+                    });
+                })
             })
         })
     });
 
     // GET THE newPost form
     app.get('/post/add', (req, res) => {
+        if(!req.user.isActive) return res.render("inactiveUser");
         db.Topic.findAll().then((data) => {
             return res.render("newPost", {
                 topics: data
@@ -65,7 +70,7 @@ module.exports = function (app, passport) {
                 req.body['upVotes'] = 0;
                 req.body['downVotes'] = 0;
                 db.Post.create(req.body).then(function (data) {
-                    return res.redirect('/posts/' + data.id);
+                    return res.redirect('/post/view/' + data.id);
                 }).catch(function (err) {
                     return res.redirect('/');
                 })

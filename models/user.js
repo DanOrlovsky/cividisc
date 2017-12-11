@@ -59,6 +59,7 @@ module.exports = function(sequelize, DT) {
         // ABOUT
         about: DT.STRING,
         
+        isActive: DT.BOOLEAN,
 
         last_login: {
             type: DT.DATE,
