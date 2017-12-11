@@ -1,22 +1,4 @@
 
-
-<h2>POST!</h2>
-
-{{ post.title }}
-
-<a href="" data-id="{{ post.id }}" class="upvote">Upvote</a>
-
-<script>
-    $('.upvote').on('click', function(e) {
-        e.preventDefault();
-        var url = '/vote/upvote/' + $(this).attr('data-id');
-        console.log(url);
-        $.ajax({
-            url: url,
-            method: "POST",
-            success: function(data) {
-                console.log(data);
-            }
-        })
-    })
-</script>
+{{> post }}
+{{ post.isClosed}}
+<h2>By: {{ post.userName }}</h2>

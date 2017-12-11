@@ -30,6 +30,7 @@ module.exports = function(sequelize, DT) {
             type: DT.INTEGER,
             allowNull: false,
         },
+        
         isPublished: DT.BOOLEAN,
         parentId: DT.INTEGER,
         upVotes: DT.INTEGER,
