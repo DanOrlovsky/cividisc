@@ -1,14 +1,14 @@
 $(function() {
     $('.vote-up').on('click', function(e){
         e.preventDefault();
-        alert("Here we are!");
+        
         let id = $(this).attr('data-id');
         let url = '/vote/upvote/' + id;
-        console.log(url);
         $.ajax({
             url: url,
-            method: "POST",
+            method: "PUT",
             success: function(data) {
+                console.log(data);
                 $(".upvotes" + id).text(data.upVotes);
             }
         })
@@ -20,7 +20,7 @@ $(function() {
         console.log(url);
         $.ajax({
             url: url,
-            method: "POST",
+            method: "PUT",
             success: function(data) {
                 $(".downvotes" + id).text(data.downVotes);
             }

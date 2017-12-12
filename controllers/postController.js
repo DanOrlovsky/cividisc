@@ -62,6 +62,7 @@ module.exports = function (app, passport) {
     app.post('/api/posts/add', authHelper.isLoggedIn, (req, res) => {
         req.body['userId'] = req.user.id;
         req.user.usePoints -= 5;
+        req.user.rep += 5;
         if(req.user.usePoints > 0) {
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
                 req.body['postDate'] = moment().unix();
