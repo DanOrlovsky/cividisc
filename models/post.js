@@ -12,7 +12,7 @@ module.exports = function(sequelize, DT) {
         comment: DT.STRING,
         url: {
             type: DT.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         topicId: {
             type: DT.INTEGER,

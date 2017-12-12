@@ -2,7 +2,7 @@ const authHelper = require('../helpers/authHelper');
 const db = require('../models');
 
 module.exports = function(app, passport) {
-    app.post('/vote/upvote/:id', authHelper.isLoggedIn, (req, res) => {
+    app.put('/vote/upvote/:id', authHelper.isLoggedIn, (req, res) => {
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
             .then((voted) => {
@@ -20,8 +20,6 @@ module.exports = function(app, passport) {
                     .then(post => db.User.findOne({ where: { id: post.userId }} )
                                             .then(user => { return { post, user } }))
                     .then(({ post, user}) => {
-                        console.log("Post: ", post);
-                        console.log("User: ", user);
                         post.upVotes++;
                         user.upVotes++;
                         user.rep += 10;
@@ -48,7 +46,7 @@ module.exports = function(app, passport) {
             }
         });
     });
-    app.post('/vote/downvote/:id', authHelper.isLoggedIn, (req, res) => {
+    app.put('/vote/downvote/:id', authHelper.isLoggedIn, (req, res) => {
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
         .then((voted) => {
@@ -82,20 +80,11 @@ module.exports = function(app, passport) {
                     post.downVotes++;
                     user.downVotes++;
                     user.rep--;
-                    return db.Notification.create({
-                        userId: user.id, 
-                        url: '/posts/' + post.id, 
-                        isRead: false, 
-                        text: "Your comment has been voted up!"                                 
-                    })
-                    .then(() => {
-                        console.log("Updating");
                         let updating = [];
-                        updating.push(user.update({ upVotes: user.upVotes, rep: user.Rep }));
+                        updating.push(user.update({ downVotes: user.downVotes, rep: user.Rep }));
                         updating.push(db.User.update(req.user, {where: {id: req.user.id }}));
-                        updating.push(post.update({ upVotes: post.upVotes }));
+                        updating.push(post.update({ downVotes: post.downVotes }));
                         return Promise.all(updating);
-                    }).catch((err) => console.log(err));
                 })
                 .then(() => res.json({ message: "Vote cast!", downVotes: post.downVotes }))
                 .catch(err => res.json({ message: "Error happened" }) )

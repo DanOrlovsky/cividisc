@@ -33,3 +33,7 @@
     font-weight: 700;
     text-align: center;
 }
+
+.alert {
+    display: none;
+}

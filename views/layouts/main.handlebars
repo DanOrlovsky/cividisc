@@ -56,11 +56,15 @@
         </div>
       </nav>
     </div>
-        <div id="page-content">
-          {{{ body }}}
+      <div id="page-content">
+        <div class="alert alert-info alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <strong>Info!</strong> This alert box could indicate a neutral informative change or action.
         </div>
-        {{#if user}}
-          <script src="../assets/js/layout.js"></script>
-        {{/if}}
+        {{{ body }}}
+      </div>
+      {{#if user}}
+        <script src="../../assets/js/layout.js"></script>
+      {{/if}}
     </body>
 </html>
