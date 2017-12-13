@@ -1,6 +1,7 @@
 const db = require('../models');
 const authHelper = require('../helpers/authHelper');
 const Sequelize = require('sequelize');
+
 module.exports = function (app, passport) {
     app.get('/', (req, res) => {
         // Get top level Posts

@@ -50,7 +50,6 @@ module.exports = function(app, passport) {
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
         .then((voted) => {
-        console.log(voted);
         if(voted) { 
             //db.VoteMap.destroy(voted);
             return res.json({ message: "Cannot vote more than once"});

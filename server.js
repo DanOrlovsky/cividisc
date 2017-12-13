@@ -40,6 +40,6 @@ require('./controllers/postController')(app, passport);
 require('./controllers/voteController')(app, passport);
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true}).then(() => {
     app.listen(port);
 })
