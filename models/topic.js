@@ -8,7 +8,7 @@ module.exports = function(sequelize, DT) {
         name: {
             type: DT.STRING,
             allowNull: false,
-        }
+        },
     });
     return Topic;
 }

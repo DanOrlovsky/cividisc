@@ -41,6 +41,7 @@ module.exports = function (app, passport) {
                 post.userName = user.displayName;
                 post.isClosed = (moment().unix() < post.postDate + post.postLife);
                 getAllPosts(post).then((data) => {
+                    console.log(data);
                     return res.render("viewPost", {
                         post: data
                     });
@@ -85,7 +86,9 @@ module.exports = function (app, passport) {
     app.post('/api/posts/reply/:id', authHelper.isLoggedIn, (req, res) => {
         var replyToId = req.params.id;
         req.body.parentId = replyToId;
+        
         db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
+            req.body.Title
             db.Notification.create({ 
                 text: "A user has replied to your post!", 
                 userId: firstPost.userid, 
