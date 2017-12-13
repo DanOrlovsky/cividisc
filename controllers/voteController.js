@@ -21,6 +21,7 @@ module.exports = function(app, passport) {
                                             .then(user => { return { post, user } }))
                     .then(({ post, user}) => {
                         post.upVotes++;
+                        post.postLife += (60*5);  //5 minutes
                         user.upVotes++;
                         user.rep += 10;
                         user.usePoints += 10;
@@ -77,6 +78,7 @@ module.exports = function(app, passport) {
                                         .then(user => { return { post, user } }))
                 .then(({ post, user}) => {
                     post.downVotes++;
+                    post.postLife -= 1000*60*5;
                     user.downVotes++;
                     user.rep--;
                         let updating = [];
