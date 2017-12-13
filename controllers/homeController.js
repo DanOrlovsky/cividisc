@@ -5,8 +5,9 @@ const Sequelize = require('sequelize');
 module.exports = function (app, passport) {
     app.get('/', (req, res) => {
         // Get top level Posts
-        db.Post.findAll({where: { parentId: null, isPublished: true }, order: [[ 'postDate', "DESC"]]}).then((posts) => {
-            res.render('index', { posts: posts });
+        db.Post.findAll({where: { parentId: null, isPublished: true }, order: [[ 'postDate', "DESC"]], include: [ 'PostUser', "Topic" ]} ).then(function(posts) {
+            console.log(req.user);
+            return res.render('index', { posts: posts });
         });
     });
     app.get('/closed', (req, res) => {

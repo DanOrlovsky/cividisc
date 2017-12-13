@@ -1,4 +1,4 @@
-
+var Post = require('./post')
 
 module.exports = function(sequelize, DT) {
     var User = sequelize.define("User", {
@@ -66,9 +66,6 @@ module.exports = function(sequelize, DT) {
         }
     });
 
-    // User.associate = function(models) {
-    //     models.User.hasMany(models.Post);
-    // }
     return User;
 }
 

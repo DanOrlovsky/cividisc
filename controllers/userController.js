@@ -1,6 +1,6 @@
 const authHelper = require('../helpers/authHelper');
 const db = require('../models');
-
+const moment = require('moment');
 module.exports = function(app, passport) { 
  
     app.get('/signup', function(req, res) {
@@ -11,6 +11,9 @@ module.exports = function(app, passport) {
     });
     app.get('/dashboard', authHelper.isLoggedIn, function(req, res) {
         db.Post.findAll({ where: { userId: req.user.id }}).then((posts) => {
+            for(var i = 0; i < posts.length; i++) {
+                posts[i].isClosed = (moment().unix() < posts[i].postDate + posts[i].postLife);
+            }
             res.render('accounts/dashboard', { posts: posts });
         })
     });
@@ -27,6 +30,8 @@ module.exports = function(app, passport) {
         passport.authenticate('local-signup', (err, user, info) => {
             if(err) return next(err)
             if(!user) {
+                console.log("=========================================")
+                console.log(info.message);
                 return res.render('accounts/signup', { message: info.message });
             }
             req.logIn(user, function(err) {
@@ -40,6 +45,8 @@ module.exports = function(app, passport) {
         passport.authenticate('local-login', function(err, user, info) {
             if(err) { console.log(err); return next(err) };
             if(!user) {
+                console.log("=========================================")
+                console.log(info.message);
                 return res.render('accounts/login', { message: info.message });
             }
             console.log(user);
