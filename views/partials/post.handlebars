@@ -5,15 +5,18 @@
             <div class="col-2 col-lg-1">
                <a href="" class="vote-up" data-id="{{ id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
                <br>
-               <span class="upvotes{{id}} vote-count">{{ upVotes }}</span><br>
-               <span class="downvotes{{id}} vote-count">{{ downVotes}}</span><br>
+               <span class="mx-1 lead upvotes{{id}} vote-count text-success">{{ upVotes }}</span>
+               <br>
+               <span class="my-1 lead downvotes{{id}} vote-count ">{{ downVotes}}</span>
+               <br>
                <a href="" class="vote-down" data-id="{{id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
             </div>
 
+
             <div class="col-10">
-                <h2><a href="/post/view/{{id}}">{{ title }}</h2></a>
+                <h4><a href="/post/view/{{id}}" class="text-dark">{{ title }}</h4></a>
                {{#if url}}<h6><a href="{{url}}">{{url}}</a></h6>{{/if}}
-                <p>{{ comment}}</p>
+                <p>{{ comment}}</p> <p>{{ userID}}</p>
             </div>
 
         </div>
