@@ -1,12 +1,52 @@
 
-<div class="container">
-    {{#unless posts}}
-        <h2>Nothing to show</h2>
-    {{/unless}}
-    {{#if posts}}
-        {{#each posts as |post|}}
-            {{> post post }}
-        {{/each}}
-    {{/if}}
+
+<div class="container-fluid">
+ <div class="row">
+     <div class="col-lg border mx-5 px-5 py-4">
+         <h4>Topics</h4>
+         <hr>
+     </div>
+        <div class="col-sm-12 col-lg-6 border px-5 py-4">
+            {{#unless posts}}
+                <h4>Nothing to show</h4>
+            {{/unless}}
+            {{#if posts}}
+                <h4>Ongoing Discussions</h4>
+                <hr>
+                {{#each posts}}
+                    {{> post}}
+                {{/each}}
+            {{/if}}
+            <hr>
+            <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+                </li>
+                <li class="page-item active">
+                    <span class="page-link">
+                    1
+                    </span>
+                    <span class="sr-only">(current)</span>
+                </li>   
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+            </nav>
+        </div>
+    <div class="col-lg border mx-5 px-5 py-4">
+        <h4>Disc Rules</h4>
+        <hr>
+    </div>
 </div>
+</div>
+
+
+<script src="../assets/js/index.js"></script>
+
 

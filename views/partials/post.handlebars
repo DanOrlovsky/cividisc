@@ -1,6 +1,7 @@
         {{getTimeLeft postDate postLife}}
         <div class="row post">
             <div class="col-2 col-lg-1">
+
                 {{#if user}}
                     <a href="" class="vote-up" data-id="{{ id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
                 {{/if}}
@@ -14,8 +15,9 @@
             <div class="col-10">
                 <h2><a href="/post/view/{{id}}">{{ title }}</h2></a>
                 <h4>By: {{ PostUser.displayName }}</h4>
+
                {{#if url}}<h6><a href="{{url}}">{{url}}</a></h6>{{/if}}
-                <p>{{ comment}}</p>
+                <p>{{ comment}}</p> <p>{{ userID}}</p>
             </div>
 
         </div>
