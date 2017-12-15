@@ -102,22 +102,27 @@ module.exports = function (app, passport) {
             req.body.userId = req.user.id;
             db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
                 req.body.topicId = firstPost.topicId;
-                db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
-                    req.body.title = "A reply to: " + user.displayName;
-                    db.Notification.create({ 
-                        text: "A user has replied to your post!", 
-                        userId: firstPost.userid, 
-                        isRead: false,
-                        url: '/posts/' + replyToId 
-                    }).then(() => {
-                        db.User.update(req.user, { where : { id: req.user.id }}).then(() => {
-                            db.Post.create(req.body).then((newPost) => {
-                                console.log("And now we should be seeing some stuff");
-                                return res.redirect('/post/view/' + newPost.id);
+                if(timeLeft = (firstPost.postDate + firstPost.postLife) - moment().unix() > 0)
+                {
+                    db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
+                        req.body.title = "A reply to: " + user.displayName;
+                        db.Notification.create({ 
+                            text: "A user has replied to your post!", 
+                            userId: firstPost.userid, 
+                            isRead: false,
+                            url: '/posts/' + replyToId 
+                        }).then(() => {
+                            db.User.update(req.user, { where : { id: req.user.id }}).then(() => {
+                                db.Post.create(req.body).then((newPost) => {
+                                    console.log("And now we should be seeing some stuff");
+                                    res.redirect('/post/view/' + newPost.id);
+                                })
                             })
-                        })
-                    })            
-                })
+                        })            
+                    })
+                } else {
+                    return res.json({ message: "This post has been closed."});
+                }
             })
         } else {
             return res.json({ message: "You do not have enough Discs to make this happen"})

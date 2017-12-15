@@ -12,7 +12,7 @@
                 <input type="text" class="form-control" name="title" id="title" placeholder="Title">
             </div>
             <div class="form-group">
-                <select class="form-control" name="topicId">
+                <select class="form-control" name="topicId" id="topicList">
                     <option value="-1" disabled selected>Please select a topic</option>
                     {{#each topics }}
                         <option value="{{ id }}">{{ name }}</option>
@@ -23,16 +23,29 @@
             <div class="form-group">
                 <label for="newTopic">Or, add a new topic</label>
                 <div class="row">
-                <div class="col-8">
-                    <input type="text" name="name" class="form-control" />
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-submit">Submit</button>
-                </div>
+                    <div class="col-10">
+                        <input type="text" id="topicName" class="form-control" />
+                    </div>
+                    <div class="col-2">
+                        <button id="submit-topic" class="btn btn-outline-success">Submit</button>
+                    </div>
                 </div>                
             </div>
             <script>
-                $.ajax()
+                $("#submit-topic").on("click", function(e) {
+                    e.preventDefault();
+                    var newTopicName = { name: $("#topicName").val() };
+                    $.ajax({
+                        url: '/topics/create',
+                        data: newTopicName,
+                        type: "POST",
+                        success: function(data) {
+                            var selectList = $("#topicList");
+                            selectList.append(`<option value=${ data.id }>${ data.name }</option>`);
+                            selectList.val(data.id);
+                        }
+                    })
+                });
             </script>
             {{/if}}
             <div class="form-group">

@@ -14,9 +14,12 @@
                 {{/if}}
             </div>
             <div class="col-10">
-                <h4>{{#if post.url}}<a href="{{ post.url }}" class="text-dark">{{/if}}{{ post.title }}{{#if post.url}}</a>{{/if}}</h4>
+
+                <h4><a href="/post/view/{{post.id}}">{{ post.title }}</a></h4>
                 <h6>By: {{ post.PostUser.displayName }}</h6>
                 <h6>In: {{>topic post.Topic }}</h6>
+                {{#if post.url}}<h6><a href="{{post.url}}">{{post.url}}</a></h6>{{/if}}
+
                 <p>{{ post.comment}}</p>
                 {{#if user}}
                 <div class="reply-box">
