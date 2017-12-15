@@ -32,12 +32,12 @@
           </form>
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             {{#unless user}}
-            <li class="nav-item">
-              <a class="nav-link lead" href="/signup">Sign Up</a>
-            </li>
-            <li class="nav-item lead">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link lead" href="/signup">Sign Up</a>
+              </li>
+              <li class="nav-item lead">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
             {{/unless}}
             {{#if user}}
             <li class="nav-item lead">
@@ -52,26 +52,27 @@
             <li class="nav-item lead">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
+              <li class="nav-item">
+                <a href="/notifications" class="nav-link"><i class="fa fa-bell-o" id="notify-bell"></i></a>
+              </li>
             {{/if}}
           </ul>
-          <div id="notification-container">
-
-          </div>
         </div>
       </nav>
     </div>
-      <div id="page-content">
-        {{{ body }}}
+    <div id="page-content">
+      <div id="notification-bar" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <span id="notify-bar"></span>
       </div>
-      {{#if user}}
-        <script src="../../assets/js/layout.js"></script>
-      {{/if}}
+      {{{ body }}}
+    </div>
+    <script src="../../assets/js/layout.js"></script>
 
 
-      <div class="modal">
-        <div class="modal-body">
+    <div class="modal">
+      <div class="modal-body">
           
-        </div>
       </div>
-    </body>
+    </div>
+  </body>
 </html>

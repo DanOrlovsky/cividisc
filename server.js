@@ -39,7 +39,7 @@ require('./controllers/homeController')(app, passport);
 require('./controllers/userController')(app, passport);
 require('./controllers/postController')(app, passport);
 require('./controllers/voteController')(app, passport);
-
+require('./controllers/topicController')(app, passport);
 const port = process.env.PORT || 3000;
 
 db.sequelize.sync(/*{ force: true }*/).then(() => {

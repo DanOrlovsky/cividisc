@@ -9,7 +9,7 @@ function getAllPosts(post) {
         db.Post.findAll({
             where: {
                 parentId: post.id
-            }
+            }, include: [ "PostUser", "Topic" ]
         }).then(function (children) {
             if (children) {
                 var buildPromises = [];
@@ -30,18 +30,18 @@ function getAllPosts(post) {
     });
 };
 
+
 module.exports = function (app, passport) {
     app.get('/post/view/:id', (req, res) => {
         db.Post.findOne({
             where: {
                 id: req.params.id
-            }, include: [ 'PostUser' ]
+            }, include: [ 'PostUser', 'Topic' ]
         }).then((post) => {
             post.isClosed = (moment().unix() < post.postDate + post.postLife);
             getAllPosts(post).then((data) => {
-                //console.log(data);
                 return res.render("viewPost", {
-                    post: data
+                    post: data,
                 });
             })
         })
@@ -59,8 +59,10 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/api/posts/add', authHelper.isLoggedIn, (req, res) => {
-        req.body['userId'] = req.user.id;
+    app.post('/posts/add',  (req, res) => {
+        if(!req.user) return res.json({ message: "You must be logged in to perform this action."})
+        if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
+        req.body.userId = req.user.id;
         req.user.usePoints -= 5;
         req.user.rep += 5;
         
@@ -85,29 +87,44 @@ module.exports = function (app, passport) {
         }
     });
 
-    app.post('/api/posts/reply/:id', authHelper.isLoggedIn, (req, res) => {
+    app.post('/posts/reply/:id', (req, res) => {
+        if(!req.user) return res.json({ message: "You must be logged in to perform this action."})
         var replyToId = req.params.id;
-        req.body.parentId = replyToId;
-        
-        db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
-            //req.body.Title
-            db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
-                req.body.title = "A reply to: " + user.displayName;
-                db.Notification.create({ 
-                    text: "A user has replied to your post!", 
-                    userId: firstPost.userid, 
-                    isRead: false,
-                    url: '/posts/' + replyToId 
-                }).then(() => {
-                    db.Post.create(req.body).then((newPost) => {
-                        return res.redirect('/posts/' + newPost.id);
-                    })
-                })            
+        req.user.usePoints -= 5;
+        if(req.user.usePoints >= 0) {
+            req.body.parentId = replyToId;
+            req.body.postDate = moment().unix();
+            req.body.postLife = 60*90;
+            req.body.isPublished = true;
+            req.body.upVotes = 0;
+            req.body.downVotes = 0;
+            //req.body.User = req.user;
+            req.body.userId = req.user.id;
+            db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
+                req.body.topicId = firstPost.topicId;
+                db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
+                    req.body.title = "A reply to: " + user.displayName;
+                    db.Notification.create({ 
+                        text: "A user has replied to your post!", 
+                        userId: firstPost.userid, 
+                        isRead: false,
+                        url: '/posts/' + replyToId 
+                    }).then(() => {
+                        db.User.update(req.user, { where : { id: req.user.id }}).then(() => {
+                            db.Post.create(req.body).then((newPost) => {
+                                console.log("And now we should be seeing some stuff");
+                                return res.redirect('/post/view/' + newPost.id);
+                            })
+                        })
+                    })            
+                })
             })
-        })
+        } else {
+            return res.json({ message: "You do not have enough Discs to make this happen"})
+        }
     });
     
-    app.post('/api/posts/remove/:id', authHelper.isLoggedIn, (req, res) => {
+    app.post('/posts/remove/:id', authHelper.isLoggedIn, (req, res) => {
         db.Post.findOne({
             where: {
                 id: req.params.id

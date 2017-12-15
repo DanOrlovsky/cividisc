@@ -2,11 +2,12 @@ const authHelper = require('../helpers/authHelper');
 const db = require('../models');
 
 module.exports = function(app, passport) {
-    app.put('/vote/upvote/:id', authHelper.isLoggedIn, (req, res) => {
+    app.put('/vote/upvote/:id', (req, res) => {
+        if(!req.user) return res.json({ message: "You must log in to vote" });
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
+        var upVotes;
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
             .then((voted) => {
-            console.log(voted);
             if(voted) { 
                 //db.VoteMap.destroy(voted);
                 return res.json({ message: "Cannot vote more than once"});
@@ -21,6 +22,7 @@ module.exports = function(app, passport) {
                                             .then(user => { return { post, user } }))
                     .then(({ post, user}) => {
                         post.upVotes++;
+                        upVotes = post.upVotes;
                         post.postLife += (60*5);  //5 minutes
                         user.upVotes++;
                         user.rep += 10;
@@ -35,19 +37,21 @@ module.exports = function(app, passport) {
                             let updating = [];
                             updating.push(user.update({ upVotes: user.upVotes, rep: user.Rep }));
                             updating.push(db.User.update(req.user, {where: {id: req.user.id }}));
-                            updating.push(post.update({ upVotes: post.upVotes }));
+                            updating.push(post.update({ upVotes: post.upVotes, postLife: post.postLife }));
                             return Promise.all(updating);
                         }).catch((err) => console.log(err));
                     })
-                .then(() => res.json({ message: "Vote cast!", upVotes: post.upVotes }))
-                .catch(err => res.json({ message: "Error happened" }) )
+                .then(() => res.json({ message: "Vote cast!", upVotes: upVotes }))
+                .catch(err => { console.log(err); res.json({ message: "Error happened" })} )
 
             } else {
                 return res.json({ message: "You don't have enough points to do this now"});
             }
         });
     });
-    app.put('/vote/downvote/:id', authHelper.isLoggedIn, (req, res) => {
+    app.put('/vote/downvote/:id', (req, res) => {
+        
+        if(!req.user) return res.json({ message: "You must log in to vote" });
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
         .then((voted) => {
@@ -84,11 +88,11 @@ module.exports = function(app, passport) {
                         let updating = [];
                         updating.push(user.update({ downVotes: user.downVotes, rep: user.Rep }));
                         updating.push(db.User.update(req.user, {where: {id: req.user.id }}));
-                        updating.push(post.update({ downVotes: post.downVotes }));
+                        updating.push(post.update({ downVotes: post.downVotes, postLife: post.postLife }));
                         return Promise.all(updating);
                 })
                 .then(() => res.json({ message: "Vote cast!", downVotes: post.downVotes }))
-                .catch(err => res.json({ message: "Error happened" }) )
+                .catch(err => res.json({ message: "Error happened" }))
 
             } else {
                 return res.json({ message: "You don't have enough points to do this now"});

@@ -1,5 +1,5 @@
 const moment = require('moment');
-
+const path = require('path');
 function hbsHelpers(hbs) {
     
     return hbs.create({
@@ -11,7 +11,9 @@ function hbsHelpers(hbs) {
                 return timeLeft > 0 ? true : false;
             },
             getTimeLeft: function(postDate, postLife) {
-                return postDate + postLife - moment().unix();
+                var timeLeft = (postDate + postLife - moment().unix()) / 60;
+                if(timeLeft < 0) timeLeft = 0; 
+                return moment(timeLeft);
             },
         }
     })

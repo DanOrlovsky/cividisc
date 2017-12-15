@@ -22,6 +22,14 @@ module.exports = function(app, passport) {
             res.redirect('/');
         });
     });
+    app.get('/notifications', (req, res) => {
+        if(req.user) {
+            db.Notification.findAll({ where: { userId: req.user.id, isRead: false }}).then((data) => {
+                return res.json(data);
+            })
+        }
+    })
+
     app.post('/signup', function(req, res, next) { 
         var user = req.body;
         if(user.email === '' || user.password==='' || user.firstname==='' || user.lastname==='') 

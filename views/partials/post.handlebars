@@ -1,31 +1,37 @@
-        {{getTimeLeft postDate postLife}}
+        <h3 class="timeLeft">Minutes Remaining: {{getTimeLeft post.postDate post.postLife}}</h3>
         <div class="row post">
             <div class="col-2 col-lg-1">
 
                 {{#if user}}
-                    <a href="" class="vote-up" data-id="{{ id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
-                {{/if}}
+                <a href="" class="vote-up" data-id="{{ post.id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
                 <br>
-                <span class="upvotes{{id}} vote-count"><i class="fa fa-plus"></i>{{ upVotes }}</span><br>
-                <span class="downvotes{{id}} vote-count">{{ downVotes}}</span><br>
-                {{#if user}}
-                <a href="" class="vote-down" data-id="{{id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
+                <i class="fa fa-plus"></i> <span class="upvotes{{post.id}} vote-count">{{ post.upVotes }}</span><br>
+                <i class="fa fa-minus"></i> <span class="downvotes{{post.id}} vote-count">{{ post.downVotes}}</span><br>
+                <a href="" class="vote-down" data-id="{{post.id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
                 {{/if}}
             </div>
             <div class="col-10">
-                <h2><a href="/post/view/{{id}}">{{ title }}</h2></a>
-                <h4>By: {{ PostUser.displayName }}</h4>
-
-               {{#if url}}<h6><a href="{{url}}">{{url}}</a></h6>{{/if}}
-                <p>{{ comment}}</p> <p>{{ userID}}</p>
+                <h2>{{#if post.url}}<a href="{{ post.url }}">{{/if}}{{ post.title }}{{#if post.url}}</a>{{/if}}</h2>
+                <h4>By: {{ post.PostUser.displayName }}</h4>
+                <h4>In: {{>topic post.Topic }}</h4>
+                <h6><a href="/post/view/{{post.id}}">Join Discussion</a></h6>
+                <p>{{ post.comment}}</p>
+                {{#if user}}
+                <div class="reply-box">
+                    <p>Quick Reply:</p> 
+                    <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
+                    <button class="btn btn-primary replyBtn" data-id="{{ post.id }}">Submit</button>
+                </div>
+                {{/if}}
             </div>
 
         </div>
 
-
-        {{#if children}}
-            {{#each children}}
-
-                {{> post}}
+        <hr> 
+        {{#if post.children}}
+            {{#each post.children as |post| }}
+                {{#with ../this }}
+                    {{> post post=post}}
+                {{/with }}
             {{/each}}
         {{/if}}

@@ -1,10 +1,14 @@
 
 
 <div class="container-fluid">
+
  <div class="row">
      <div class="col-lg border mx-5 px-5 py-4">
          <h4>Topics</h4>
          <hr>
+        {{#each topics}}
+            <li>{{> topic }}</li>
+        {{/each}}
      </div>
         <div class="col-sm-12 col-lg-6 border px-5 py-4">
             {{#unless posts}}
@@ -13,8 +17,10 @@
             {{#if posts}}
                 <h4>Ongoing Discussions</h4>
                 <hr>
-                {{#each posts}}
-                    {{> post}}
+                {{#each posts as |post|}}
+                    {{#with ../this}}
+                        {{> post post=post }}
+                    {{/with}}
                 {{/each}}
             {{/if}}
             <hr>
