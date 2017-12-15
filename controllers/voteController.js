@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
                         user.usePoints += 10;
                         return db.Notification.create({
                             userId: user.id, 
-                            url: '/posts/' + post.id, 
+                            url: '/post/view/' + post.id, 
                             isRead: false, 
                             text: "Your post has been voted up and you've received more Discs!"                                 
                         })

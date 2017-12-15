@@ -22,14 +22,24 @@ module.exports = function(app, passport) {
             res.redirect('/');
         });
     });
-    app.get('/notifications', (req, res) => {
+    app.get('/notifications', authHelper.isLoggedIn, (req, res) => {
         if(req.user) {
             db.Notification.findAll({ where: { userId: req.user.id, isRead: false }}).then((data) => {
-                return res.json(data);
+                return res.render('notifications', { notifications: data});
             })
         }
     })
-
+    app.post('/notification/read/:id', (req, res) => {
+        let id = req.params.id;
+        db.Notification.findOne({ where: { id: id}}).then((notification) => {
+            notification.update({ isRead: true}).then(() => {
+                return res.json({ completed: true });
+            }).catch(err => {
+                console.log(err);
+                return res.json({ completed: false })
+            })
+        })
+    })
     app.post('/signup', function(req, res, next) { 
         var user = req.body;
         if(user.email === '' || user.password==='' || user.firstname==='' || user.lastname==='') 

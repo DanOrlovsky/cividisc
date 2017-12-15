@@ -113,7 +113,7 @@ module.exports = function (app, passport) {
                             text: "A user has replied to your post!", 
                             userId: firstPost.userid, 
                             isRead: false,
-                            url: '/posts/' + replyToId 
+                            url: '/post/view/' + replyToId 
                         }).then(() => {
                             db.User.update(req.user, { where : { id: req.user.id }}).then(() => {
                                 db.Post.create(req.body).then((newPost) => {
