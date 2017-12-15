@@ -3,6 +3,9 @@ body {
     width: 100vw;
 }
 
+a:hover { 
+    link-color: rgb(0,200,81);
+}
 #page-content {
     margin-top: 100px;
     margin-bottom: 80px;
