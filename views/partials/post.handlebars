@@ -1,6 +1,6 @@
 
         <div class="row post">
-            <div class="col">
+            <div class="col-1">
 
                 {{#if user}}
                 <a href="" class="vote-up" data-id="{{ post.id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
@@ -12,7 +12,7 @@
                 <a href="" class="vote-down" data-id="{{post.id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
                 {{/if}}
             </div>
-            <div class="col-10">
+            <div class="col-9">
 
                 <h4><a href="/post/view/{{post.id}}" class="text-dark">{{ post.title }}</a></h4>
                 <h6 class="text-muted">By: {{ post.PostUser.displayName }}</h6>
@@ -29,7 +29,7 @@
                 {{/if}}
             </div>
 
-            <div class="col">
+            <div class="col-2">
                 <h5 class="timeLeft text-center">Time Left </h5>
                 <br>
                 <h2 class="lead text-center"> {{getTimeLeft post.postDate post.postLife}}<h2>

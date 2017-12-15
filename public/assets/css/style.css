@@ -148,7 +148,9 @@ a:hover {
   letter-spacing: -.05rem;
 }
 
-
+.box-shadow {
+    box-shadow: 0px 0 5px silver;
+}
 
 @media (min-width: 40em) {
   
