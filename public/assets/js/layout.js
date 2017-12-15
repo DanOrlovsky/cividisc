@@ -54,15 +54,30 @@ $(function() {
         let replyId = parseInt($(this).attr('data-id'));
         let comment = $("textarea#replyTo" + replyId).val();
         let url = '/posts/reply/' + replyId;
-        alert("POST!");
         $.ajax({
             url: url,
             method: "POST",
             data: { comment: comment },
             success: function(data) {
-
-                displayNotification(data.message);                
+                window.location = '/post/view/' + data.newPostId;
             }
         })
+    })
+    $("#submit-now").on('click', function(e) {
+        var msgString = "";
+        var failed = false;
+        if($("#topicId").val() == -1) {
+            msgString += "Please select a topic.\n";
+            failed = true;
+        }
+        if($("#title").val() == "") {
+            msgString += "Please enter a title\n";
+            failed = true;
+        }
+        if(failed){
+            e.preventDefault();
+            displayNotification(msgString);
+        }
+        //alert($("#topicId").val());
     })
 })

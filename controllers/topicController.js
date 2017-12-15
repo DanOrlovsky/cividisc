@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
         })
     })
     app.post('/topics/create', (req, res) => {
-        if(req.user.rep < 550) return res.send({ message: "You do not have enough rep."})
+        if(req.user.rep < 600) return res.send({ message: "You do not have enough rep."})
         db.Topic.findOne({ where: { name: req.body.name }}).then(topic => {
             if(topic) {
                 return res.json(topic);

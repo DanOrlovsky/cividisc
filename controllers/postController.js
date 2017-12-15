@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
     });
 
     // GET THE newPost form
-    app.get('/post/add', (req, res) => {
+    app.get('/post/add', authHelper.isLoggedIn, (req, res) => {
         if(!req.user.isActive) return res.render("inactiveUser");
         db.Topic.findAll().then((data) => {
             var canAddTopic = req.user.rep > 600;
@@ -62,6 +62,7 @@ module.exports = function (app, passport) {
     app.post('/posts/add',  (req, res) => {
         if(!req.user) return res.json({ message: "You must be logged in to perform this action."})
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
+        if(req.body.topicId == -1) return res.json({ message: "Please select a topic" });
         req.body.userId = req.user.id;
         req.user.usePoints -= 5;
         req.user.rep += 5;
@@ -90,6 +91,7 @@ module.exports = function (app, passport) {
     app.post('/posts/reply/:id', (req, res) => {
         if(!req.user) return res.json({ message: "You must be logged in to perform this action."})
         var replyToId = req.params.id;
+        var returnPost;
         req.user.usePoints -= 5;
         if(req.user.usePoints >= 0) {
             req.body.parentId = replyToId;
@@ -101,6 +103,7 @@ module.exports = function (app, passport) {
             //req.body.User = req.user;
             req.body.userId = req.user.id;
             db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
+                returnPost = firstPost;
                 req.body.topicId = firstPost.topicId;
                 if(timeLeft = (firstPost.postDate + firstPost.postLife) - moment().unix() > 0)
                 {
@@ -114,8 +117,10 @@ module.exports = function (app, passport) {
                         }).then(() => {
                             db.User.update(req.user, { where : { id: req.user.id }}).then(() => {
                                 db.Post.create(req.body).then((newPost) => {
-                                    console.log("And now we should be seeing some stuff");
-                                    res.redirect('/post/view/' + newPost.id);
+                                    res.status(200).json({
+                                        message: "Reply posted successfully",
+                                        newPostId: returnPost.id,
+                                    })
                                 })
                             })
                         })            
