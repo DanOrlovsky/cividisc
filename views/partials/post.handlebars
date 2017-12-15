@@ -1,20 +1,25 @@
-        <h3 class="timeLeft">Minutes Remaining: {{getTimeLeft post.postDate post.postLife}}</h3>
+        <h4 class="timeLeft">Minutes Remaining: {{getTimeLeft post.postDate post.postLife}}</h4>
+
         <div class="row post">
             <div class="col-2 col-lg-1">
 
                 {{#if user}}
                 <a href="" class="vote-up" data-id="{{ post.id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
                 <br>
-                <i class="fa fa-plus"></i> <span class="upvotes{{post.id}} vote-count">{{ post.upVotes }}</span><br>
-                <i class="fa fa-minus"></i> <span class="downvotes{{post.id}} vote-count">{{ post.downVotes}}</span><br>
+                <span class="mx-1 text-success upvotes{{post.id}} vote-count lead">{{ post.upVotes }}</span>
+                <br>
+                <span class="mx-2 my-1 downvotes{{post.id}} vote-count lead">{{ post.downVotes}}</span>
+                <br>
                 <a href="" class="vote-down" data-id="{{post.id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
                 {{/if}}
             </div>
             <div class="col-10">
-                <h2><a href="/post/view/{{post.id}}">{{ post.title }}</a></h2>
-                <h4>By: {{ post.PostUser.displayName }}</h4>
-                <h4>In: {{>topic post.Topic }}</h4>
+
+                <h4><a href="/post/view/{{post.id}}">{{ post.title }}</a></h4>
+                <h6>By: {{ post.PostUser.displayName }}</h6>
+                <h6>In: {{>topic post.Topic }}</h6>
                 {{#if post.url}}<h6><a href="{{post.url}}">{{post.url}}</a></h6>{{/if}}
+
                 <p>{{ post.comment}}</p>
                 {{#if user}}
                 <div class="reply-box">

@@ -2,8 +2,10 @@ body {
     background-color: #fff;
     width: 100vw;
 }
+
 #page-content {
     margin-top: 100px;
+    margin-bottom: 80px;
 }
 
 .login-page {
@@ -91,3 +93,4 @@ body {
 .btn {
     margin-top: 10px;
 }
+

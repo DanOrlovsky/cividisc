@@ -2,15 +2,15 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-lg border mx-5 px-5 py-4">
-            <h4>Topics</h4>
-            <hr>
-            {{#each topics}}
-                <li>{{> topic }}</li>
-            {{/each}}
-        </div>
-        <div class="col-sm-12 col-lg-6 border px-5 py-4">
+ <div class="row">
+     <div class="col-lg border mx-5 px-5 py-4">
+         <h4>Topics</h4>
+         <hr>
+        {{#each topics}}
+            <h6>{{> topic }}<h6>
+        {{/each}}
+     </div>
+        <div class="col-sm-12 col-lg-6 border px-4 py-4">
             {{#unless posts}}
                 <h4>Nothing to show</h4>
             {{/unless}}
@@ -23,7 +23,7 @@
                     {{/with}}
                 {{/each}}
             {{/if}}
-            <hr>
+
             <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
