@@ -6,7 +6,7 @@ module.exports = function (app, passport) {
 
     app.get('/', (req, res) => {
         // Get top level Posts
-        db.Post.findAll({where: { parentId: null, isPublished: true }, order: [[ 'postDate', "DESC"]], include: [ 'PostUser', "Topic" ]} ).then(function(posts) {
+        db.Post.findAll({where: { parentId: null, isPublished: true }, order: [[ 'postDate', "DESC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ]} ).then(function(posts) {
             db.Topic.findAll().then((topics) => {
                 return res.render('index', { posts: posts, topics: topics });
             });
