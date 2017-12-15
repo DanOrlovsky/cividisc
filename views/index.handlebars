@@ -1,31 +1,58 @@
 
 
 <div class="container-fluid">
-    {{#if user}}
-        Howdy user!!
-    {{/if}}
-    <div class="row">
-        <div id="topic-container" class="col-12 col-md-2">
-            <ul>
-                <h4>Topics of Discussion</h4>
-                {{#each topics}}
-                    <li>{{> topic }}</li>
-                {{/each}}
-            </ul>
-        </div>
-        <div class="col-12 col-md-8">
-            
+
+ <div class="row">
+     <div class="col-lg border mx-5 px-5 py-4">
+         <h4>Topics</h4>
+         <hr>
+        {{#each topics}}
+            <li>{{> topic }}</li>
+        {{/each}}
+     </div>
+        <div class="col-sm-12 col-lg-6 border px-5 py-4">
             {{#unless posts}}
-                <h2>Nothing to show</h2>
+                <h4>Nothing to show</h4>
             {{/unless}}
             {{#if posts}}
+                <h4>Ongoing Discussions</h4>
+                <hr>
                 {{#each posts as |post|}}
                     {{#with ../this}}
                         {{> post post=post }}
                     {{/with}}
                 {{/each}}
             {{/if}}
+            <hr>
+            <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+                </li>
+                <li class="page-item active">
+                    <span class="page-link">
+                    1
+                    </span>
+                    <span class="sr-only">(current)</span>
+                </li>   
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+            </nav>
         </div>
+    <div class="col-lg border mx-5 px-5 py-4">
+        <h4>Disc Rules</h4>
+        <hr>
     </div>
 </div>
+</div>
+
+
+<script src="../assets/js/index.js"></script>
+
 

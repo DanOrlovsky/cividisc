@@ -1,6 +1,7 @@
         <h3 class="timeLeft">Minutes Remaining: {{getTimeLeft post.postDate post.postLife}}</h3>
         <div class="row post">
             <div class="col-2 col-lg-1">
+
                 {{#if user}}
                 <a href="" class="vote-up" data-id="{{ post.id }}"><img src="../../assets/icons/good.png" alt="discUp" class="discup"></a>
                 <br>
@@ -15,11 +16,13 @@
                 <h4>In: {{>topic post.Topic }}</h4>
                 <h6><a href="/post/view/{{post.id}}">Join Discussion</a></h6>
                 <p>{{ post.comment}}</p>
+                {{#if user}}
                 <div class="reply-box">
                     <p>Quick Reply:</p> 
                     <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
                     <button class="btn btn-primary replyBtn" data-id="{{ post.id }}">Submit</button>
                 </div>
+                {{/if}}
             </div>
 
         </div>
