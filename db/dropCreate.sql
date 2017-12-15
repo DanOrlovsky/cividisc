@@ -1,0 +1,2 @@
+DROP DATABASE civiDisc_db;
+CREATE DATABASE civiDisc_db;

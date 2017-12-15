@@ -1,3 +1,7 @@
+//var User = require('./user');
+const Sequelize = require('sequelize');
+
+
 module.exports = function(sequelize, DT) {
     var Post = sequelize.define('Post', {
         id: {
@@ -14,14 +18,14 @@ module.exports = function(sequelize, DT) {
             type: DT.STRING,
             allowNull: true,
         },
-        topicId: {
+        /*topicId: {
             type: DT.INTEGER,
             allowNull: true,
         },
         userId: {
             type: DT.INTEGER,
             allowNull: false,
-        },
+        },*/
         postDate: {
             type: DT.INTEGER,
             allowNull: false,
@@ -38,10 +42,10 @@ module.exports = function(sequelize, DT) {
         timeLeftMs: DT.INTEGER,
         threadClosed: DT.BOOLEAN,
     });
-    
+    //Post.hasOne(Sequelize.Model.User);
     Post.associate = function(models) {
-        models.Post.hasOne(models.User);
-        models.Post.hasOne(models.Topic);
+        models.Post.belongsTo(models.User, { foreignKey: "userId", as: "PostUser" });
+        models.Post.belongsTo(models.Topic, { foreignKey: "topicId", as: "Topic"});
     }
     return Post;
 }

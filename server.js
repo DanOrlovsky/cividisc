@@ -20,13 +20,14 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.engine('handlebars', exphbs({defaultLayout: 'main' }));
+var handlebars = require('./helpers/handlebarsHelper')(exphbs);
+app.engine('handlebars', handlebars.engine);
+
 app.set('view engine', 'handlebars');
 
 app.use(session({ secret: "civiDiscSession", saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(Date);
 require('./config/passport.js')(passport, db.User);
 app.use(function(req, res, next) {
     res.locals.user = req.user;
@@ -38,8 +39,9 @@ require('./controllers/homeController')(app, passport);
 require('./controllers/userController')(app, passport);
 require('./controllers/postController')(app, passport);
 require('./controllers/voteController')(app, passport);
+
 const port = process.env.PORT || 3000;
 
-db.sequelize.sync({ force: true}).then(() => {
-    app.listen(port);
+db.sequelize.sync(/*{ force: true }*/).then(() => {
+    app.listen(port, () => console.log(`App listening on port 3000 ${ Date.now() }`));
 })

@@ -35,17 +35,14 @@ module.exports = function (app, passport) {
         db.Post.findOne({
             where: {
                 id: req.params.id
-            }
+            }, include: [ 'PostUser' ]
         }).then((post) => {
-            db.User.findOne({ where: { id: post.userId }}).then((user) => {
-                post.userName = user.displayName;
-                post.isClosed = (moment().unix() < post.postDate + post.postLife);
-                getAllPosts(post).then((data) => {
-                    console.log(data);
-                    return res.render("viewPost", {
-                        post: data
-                    });
-                })
+            post.isClosed = (moment().unix() < post.postDate + post.postLife);
+            getAllPosts(post).then((data) => {
+                //console.log(data);
+                return res.render("viewPost", {
+                    post: data
+                });
             })
         })
     });
@@ -54,8 +51,10 @@ module.exports = function (app, passport) {
     app.get('/post/add', (req, res) => {
         if(!req.user.isActive) return res.render("inactiveUser");
         db.Topic.findAll().then((data) => {
+            var canAddTopic = req.user.rep > 600;
             return res.render("newPost", {
-                topics: data
+                topics: data,
+                canAddTopic: canAddTopic,
             });
         });
     });
@@ -64,13 +63,16 @@ module.exports = function (app, passport) {
         req.body['userId'] = req.user.id;
         req.user.usePoints -= 5;
         req.user.rep += 5;
+        
         if(req.user.usePoints > 0) {
+            var strMessage = '';            
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
-                req.body['postDate'] = moment().unix();
-                req.body['postLife'] = 60000*90;
-                req.body['isPublished'] = true;
-                req.body['upVotes'] = 0;
-                req.body['downVotes'] = 0;
+                req.body.postDate = moment().unix();
+                req.body.postLife = 60*90;
+                req.body.isPublished = true;
+                req.body.upVotes = 0;
+                req.body.downVotes = 0;
+                req.body.User = req.user;
                 db.Post.create(req.body).then(function (data) {
                     return res.redirect('/post/view/' + data.id);
                 }).catch(function (err) {
@@ -88,17 +90,20 @@ module.exports = function (app, passport) {
         req.body.parentId = replyToId;
         
         db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
-            req.body.Title
-            db.Notification.create({ 
-                text: "A user has replied to your post!", 
-                userId: firstPost.userid, 
-                isRead: false,
-                url: '/posts/' + replyToId 
-            }).then(() => {
-                db.Post.create(req.body).then((newPost) => {
-                    return res.redirect('/posts/' + newPost.id);
-                })
-            })            
+            //req.body.Title
+            db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
+                req.body.title = "A reply to: " + user.displayName;
+                db.Notification.create({ 
+                    text: "A user has replied to your post!", 
+                    userId: firstPost.userid, 
+                    isRead: false,
+                    url: '/posts/' + replyToId 
+                }).then(() => {
+                    db.Post.create(req.body).then((newPost) => {
+                        return res.redirect('/posts/' + newPost.id);
+                    })
+                })            
+            })
         })
     });
     

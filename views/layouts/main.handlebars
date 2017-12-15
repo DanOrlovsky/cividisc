@@ -7,7 +7,7 @@
         <!-- Latest compiled and minified CSS -->
        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                 crossorigin="anonymous"></script>
@@ -35,8 +35,6 @@
             <li class="nav-item">
               <a class="nav-link lead" href="/signup">Sign Up</a>
             </li>
-            {{/unless}}
-            {{#unless user}}
             <li class="nav-item lead">
               <a class="nav-link" href="/login">Login</a>
             </li>
@@ -63,10 +61,6 @@
       </nav>
     </div>
       <div id="page-content">
-        <div class="alert alert-info alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          <strong>Info!</strong> This alert box could indicate a neutral informative change or action.
-        </div>
         {{{ body }}}
       </div>
       {{#if user}}
