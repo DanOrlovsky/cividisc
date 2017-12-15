@@ -10,7 +10,7 @@ module.exports = function(app, passport) {
         res.render('accounts/login');
     });
     app.get('/dashboard', authHelper.isLoggedIn, function(req, res) {
-        db.Post.findAll({ where: { userId: req.user.id }}).then((posts) => {
+        db.Post.findAll({ where: { userId: req.user.id }, include: [ "PostUser", "Topic" ]}).then((posts) => {
             for(var i = 0; i < posts.length; i++) {
                 posts[i].isClosed = (moment().unix() < posts[i].postDate + posts[i].postLife);
             }

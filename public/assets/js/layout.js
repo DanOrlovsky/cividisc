@@ -7,7 +7,7 @@ $(function() {
         $("#notification-bar").animate({ opacity: 1}, 200);
         $("#notify-bar").text(msg);
         count = 0;
-        displayNotify = setInterval(countDown, 1000);
+        displayNotify = setInterval(countDown, 500);
 
     }
     function countDown() {
@@ -23,7 +23,7 @@ $(function() {
         
         let id = $(this).attr('data-id');
         let url = '/vote/upvote/' + id;
-        console.log(url);
+        //console.log(url);
         $.ajax({
             url: url,
             method: "PUT",
@@ -50,18 +50,17 @@ $(function() {
     $('textarea.reply').focus(function () {
         $(this).animate({ height: "6em", width: '100%' }, 200);
     });
-    $('textarea.reply').focusout(function() {
-        $(this).animate({ height: "32px", width: '100px' }, 200);        
-    });
     $(".replyBtn").on("click", function() {
         let replyId = parseInt($(this).attr('data-id'));
         let comment = $("textarea#replyTo" + replyId).val();
         let url = '/posts/reply/' + replyId;
+        alert("POST!");
         $.ajax({
             url: url,
             method: "POST",
             data: { comment: comment },
             success: function(data) {
+
                 displayNotification(data.message);                
             }
         })

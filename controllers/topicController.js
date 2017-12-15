@@ -6,14 +6,15 @@ module.exports = function(app, passport) {
             return res.send(data);
         })
     })
-    app.get('/topics/create', (req, res) => {
-
-    })
-    
-    app.post('/topics/create', (res, req) => {
+    app.post('/topics/create', (req, res) => {
         if(req.user.rep < 550) return res.send({ message: "You do not have enough rep."})
-        db.Topic.create(req.body).then((data) => {
-            
+        db.Topic.findOne({ where: { name: req.body.name }}).then(topic => {
+            if(topic) {
+                return res.json(topic);
+            }
+            db.Topic.create(req.body).then((data) => {
+                return res.json(data);
+            })
         })
     }) 
     

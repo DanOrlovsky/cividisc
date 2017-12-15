@@ -10,8 +10,8 @@
 </div>
 
     <div class="container" >
-    {{#each posts}}
-    {{> post }}
+    {{#each posts as |post|}}
+    {{> post post=post}}
     {{/each}}
     </div>
 
