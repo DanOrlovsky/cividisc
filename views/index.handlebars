@@ -1,12 +1,31 @@
 
-<div class="container">
-    {{#unless posts}}
-        <h2>Nothing to show</h2>
-    {{/unless}}
-    {{#if posts}}
-        {{#each posts as |post|}}
-            {{> post post }}
-        {{/each}}
+
+<div class="container-fluid">
+    {{#if user}}
+        Howdy user!!
     {{/if}}
+    <div class="row">
+        <div id="topic-container" class="col-12 col-md-2">
+            <ul>
+                <h4>Topics of Discussion</h4>
+                {{#each topics}}
+                    <li>{{> topic }}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-12 col-md-8">
+            
+            {{#unless posts}}
+                <h2>Nothing to show</h2>
+            {{/unless}}
+            {{#if posts}}
+                {{#each posts as |post|}}
+                    {{#with ../this}}
+                        {{> post post=post }}
+                    {{/with}}
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
 </div>
 

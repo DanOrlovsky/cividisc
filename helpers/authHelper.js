@@ -18,7 +18,7 @@ var authHelper = {
         if (req.user) {
             next();
         } else {
-            res.redirect('/login');
+            return res.redirect('/login');
         }
     }
 }
