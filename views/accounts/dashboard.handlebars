@@ -1,15 +1,16 @@
 
 
-<div class="container">
+<h1 class="display-4 text-center">{{ user.displayName}}'s Dashboard</h2>
+
+<div class="container text-center lead">
 
 
-    <h2>{{ user.displayName}}'s Dashboard!</h2>
-    <h2>Name: {{user.firstName}} {{user.lastName}}</h2>
-    <h2>Reputation: {{user.rep}} </h2>
+    <h2 class="lead">Name: {{user.firstName}} {{user.lastName}}</h2>
+    <h2 class="lead">Reputation: {{user.rep}} </h2>
 
 </div>
-
-    <div class="container" >
+<br>
+    <div class="container col-lg-6 border px-4 py-4 box-shadow" >
     {{#each posts as |post|}}
     {{> post post=post}}
     {{/each}}
