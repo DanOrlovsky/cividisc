@@ -170,3 +170,49 @@ a:hover {
     margin-top: 7rem;
   }
 }
+
+.page-footer blue center-on-small-only {
+    background-color: blue;
+}
+
+.contributers {
+    text-align: center;
+
+}
+
+.jumbotron {
+   background-color: #777;
+   min-width: 100%;
+   height: 32rem;
+   top: 0;
+  left: 0;  
+}
+
+.display-3{
+    text-align: center;
+
+}
+.img1{
+    margin: 80px 10px 0 75px;
+}
+.bd-footer {
+    text-align: center;
+    font-size: 85%;
+    background-color:#868e96;
+}
+
+.text-muted{
+    color:rgb(221, 221, 221);
+
+}
+
+.footer-copyright {
+    background-color: #175db8;
+    width:auto;
+}
+
+.ccontainer-fluid {
+    width: 100%;
+    margin: auto;
+  
+}
