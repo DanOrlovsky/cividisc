@@ -6,11 +6,12 @@
      <div class="col-lg border mx-5 px-5 py-4 ">
          <h4>Topics</h4>
          <hr>
+         <h5><a href="/">All</a></h5>
         {{#each topics}}
             <h6 class="lead">{{> topic }}<h6>
         {{/each}}
      </div>
-        <div class="col-sm-12 col-lg-6 border px-4 py-4 box-shadow">
+        <div class="col-12 col-lg-6 border px-4 py-4 box-shadow">
             {{#unless posts}}
                 <h4>Nothing to show</h4>
             {{/unless}}
