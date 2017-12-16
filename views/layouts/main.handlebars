@@ -18,7 +18,7 @@
     </head>
     <body>
     <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <a class="navbar-brand" href="/">
           <img src="../../assets/icons/logo.jpg" width="50" height="50" class="d-inline-block align-top" alt="logo">
           </a>
@@ -40,18 +40,18 @@
               </li>
             {{/unless}}
             {{#if user}}
-            <li class="nav-item lead">
-              <span class="nav-link">Discs: {{user.usePoints}}</span>
-            </li>
-            <li class="nav-item lead">
-              <a class="nav-link" href="/post/add">Post</a>
-            </li>
-            <li class="nav-item lead">
-              <a class="nav-link" href="/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item lead">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
+              <li class="nav-item lead">
+                <span class="nav-link">Discs: {{user.usePoints}}</span>
+              </li>
+              <li class="nav-item lead">
+                <a class="nav-link" href="/post/add">Post</a>
+              </li>
+              <li class="nav-item lead">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item lead">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
               <li class="nav-item">
                 <a href="/notifications" class="nav-link"><i class="fa fa-bell-o" id="notify-bell"></i></a>
               </li>
