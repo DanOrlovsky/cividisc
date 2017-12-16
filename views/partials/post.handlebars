@@ -15,15 +15,16 @@
             <div class="col-7">
 
                 <h4><a href="/post/view/{{post.id}}" class="text-dark">{{ post.title }}</a></h4>
-                <h6 class="text-muted">By: {{ post.PostUser.displayName }}</h6>
-                <h6>In: {{>topic post.Topic }}</h6>
-                {{#if post.url}}<h6><a href="{{post.url}}" class="text-dark">{{post.url}}</a></h6>{{/if}}
-
+                {{#if post.url}}<p class="text-muted"><a href="{{post.url}}" class="text-dark">{{post.url}}</a></p>{{/if}}
                 <p>{{ post.comment}}</p>
+                <div>
+                <small>In: {{>topic post.Topic }}</small>
+                <small>By: {{ post.PostUser.displayName }}</small>
+                </div>
+                <br>
                 {{#if user}}
                     {{#if (ifTimeLeft post.postDate post.postLife) }}
                         <div class="reply-box">
-                            <p>Quick Reply:</p> 
                             <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
                             <button class="btn btn-outline-success replyBtn" data-id="{{ post.id }}">Reply</button>
                         </div>
@@ -32,7 +33,7 @@
             </div>
 
             <div class="col-2">
-                <h5 class="timeLeft text-center">Time Left </h5>
+                <p class="timeLeft text-center lead">Time Left </p>
                 <br>
                 <h2 class="lead text-center"> {{getTimeLeft post.postDate post.postLife}}<h2>
             </div>
