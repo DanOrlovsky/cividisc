@@ -93,6 +93,7 @@ module.exports = function (app, passport) {
         var replyToId = req.params.id;
         var returnPost;
         req.user.usePoints -= 5;
+        req.user.rep += 5;
         if(req.user.usePoints >= 0) {
             req.body.parentId = replyToId;
             req.body.postDate = moment().unix();
@@ -100,6 +101,7 @@ module.exports = function (app, passport) {
             req.body.isPublished = true;
             req.body.upVotes = 0;
             req.body.downVotes = 0;
+            
             //req.body.User = req.user;
             req.body.userId = req.user.id;
             db.Post.findOne({where: { id: replyToId}}).then((firstPost) => {
