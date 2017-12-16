@@ -12,7 +12,8 @@
                 <a href="" class="vote-down" data-id="{{post.id}}"><img src="../../assets/icons/bad.png" alt="discDown" class="discdown"></a>
                 {{/if}}
             </div>
-            <div class="col-9">
+            <div class="col-7">
+
                 <h4><a href="/post/view/{{post.id}}" class="text-dark">{{ post.title }}</a></h4>
                 {{#if post.url}}<p class="text-muted"><a href="{{post.url}}" class="text-dark">{{post.url}}</a></p>{{/if}}
                 <p>{{ post.comment}}</p>
