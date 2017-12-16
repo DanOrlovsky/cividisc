@@ -21,11 +21,13 @@
 
                 <p>{{ post.comment}}</p>
                 {{#if user}}
-                <div class="reply-box">
-                    <p>Quick Reply:</p> 
-                    <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
-                    <button class="btn btn-outline-success replyBtn" data-id="{{ post.id }}">Reply</button>
-                </div>
+                    {{#if (ifTimeLeft post.postDate post.postLife) }}
+                        <div class="reply-box">
+                            <p>Quick Reply:</p> 
+                            <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
+                            <button class="btn btn-outline-success replyBtn" data-id="{{ post.id }}">Reply</button>
+                        </div>
+                    {{/if}}
                 {{/if}}
             </div>
 
