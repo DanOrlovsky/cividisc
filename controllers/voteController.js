@@ -82,7 +82,7 @@ module.exports = function(app, passport) {
                                         .then(user => { return { post, user } }))
                 .then(({ post, user}) => {
                     post.downVotes++;
-                    post.postLife -= 1000*60*5;
+                    post.postLife -= 60*5;
                     user.downVotes++;
                     user.rep--;
                         let updating = [];
