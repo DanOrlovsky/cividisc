@@ -25,8 +25,14 @@
 {{/if}}
 <br>
 <div class="container col-lg-6 border px-4 py-4 box-shadow" >
-    {{#each posts as |post|}}
-        {{> post post=post}}
-    {{/each}}
+    {{#if posts}}
+        {{#each posts as |post|}}
+            {{> post post=post}}
+        {{/each}}
+    {{/if}}
+    {{#unless posts}}
+        <h4>You have no posts yet.</h4>
+        <h6><a href="/post/add">Create</a> one now</h6>
+    {{/unless}}
 </div>
 
