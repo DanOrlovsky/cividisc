@@ -3,7 +3,7 @@ const authHelper = require('../helpers/authHelper');
 const _ = require('underscore');
 const moment = require("moment");
 
-
+// Function that recursively gets all children posts
 function getAllPosts(post) {
     return new Promise(function (resolve, reject) {
         db.Post.findAll({
