@@ -3,16 +3,30 @@
 <h1 class="display-4 text-center">{{ user.displayName}}'s Dashboard</h2>
 
 <div class="container text-center lead">
-
-
     <h2 class="lead">Name: {{user.firstName}} {{user.lastName}}</h2>
     <h2 class="lead">Reputation: {{user.rep}} </h2>
-
 </div>
-<br>
-    <div class="container col-lg-6 border px-4 py-4 box-shadow" >
-    {{#each posts as |post|}}
-    {{> post post=post}}
-    {{/each}}
+{{#if (canAddAvatar user.rep)}}
+    <div class="container text-center upload-box">
+        {{#if message}} 
+            <label class="alert alert-danger">{{message}}</label>
+        {{/if}}
+        {{#if user.imageUrl }}
+            <img class="user-image" src="{{ user.imageUrl}}" />
+        {{/if}}
+        <h6>
+            Add a personal avatar, after all - you've earned the rep!
+        </h6>
+        <form method="post" enctype="multipart/form-data" action="/uploadImage">
+            <input type="file" name="userImage" id="img-upload" /><br />
+            <input type="submit" class="btn btn-outline-success" />
+        </form>
     </div>
+{{/if}}
+<br>
+<div class="container col-lg-6 border px-4 py-4 box-shadow" >
+    {{#each posts as |post|}}
+        {{> post post=post}}
+    {{/each}}
+</div>
 
