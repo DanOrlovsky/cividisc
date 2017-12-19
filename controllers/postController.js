@@ -50,7 +50,7 @@ module.exports = function (app, passport) {
     // GET THE newPost form
     app.get('/post/add', authHelper.isLoggedIn, (req, res) => {
         if(!req.user.isActive) return res.render("inactiveUser");
-        db.Topic.findAll().then((data) => {
+        db.Topic.findAll({ where: { name: { [Op.ne]: null }}}).then((data) => {
             var canAddTopic = req.user.rep > 600;
             return res.render("newPost", {
                 topics: data,
