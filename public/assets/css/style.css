@@ -260,4 +260,6 @@ a:hover {
     height: 1500px;
 }
 
-
+.discdown:hover {
+    color: red;
+}
