@@ -84,7 +84,5 @@ module.exports = function (sequelize, DT) {
         }
     });
 
-
-
     return User;
 }

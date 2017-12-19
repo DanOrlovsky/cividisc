@@ -50,7 +50,7 @@ module.exports = function(app, passport) {
         });
     });
     app.put('/vote/downvote/:id', (req, res) => {
-        
+        var downVotes;
         if(!req.user) return res.json({ message: "You must log in to vote" });
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
         db.VoteMap.findOne({where: { userId: req.user.id, postId: req.params.id }})
@@ -83,6 +83,7 @@ module.exports = function(app, passport) {
                 .then(({ post, user}) => {
                     post.downVotes++;
                     post.postLife -= 60*5;
+                    downVotes = post.downVotes;
                     user.downVotes++;
                     user.rep--;
                         let updating = [];
@@ -91,7 +92,7 @@ module.exports = function(app, passport) {
                         updating.push(post.update({ downVotes: post.downVotes, postLife: post.postLife }));
                         return Promise.all(updating);
                 })
-                .then(() => res.json({ message: "Vote cast!", downVotes: post.downVotes }))
+                .then(() => res.json({ message: "Vote cast!", downVotes: downVotes }))
                 .catch(err => res.json({ message: "Error happened" }))
 
             } else {
