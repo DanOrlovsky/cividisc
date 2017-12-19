@@ -28,7 +28,7 @@ $(function() {
             url: url,
             method: "PUT",
             success: function(data) {
-                $(".upvotes" + id).text(data.upvotes);
+                $(".upvotes" + id).text(data.upVotes);
                 displayNotification(data.message);
             }
         })
