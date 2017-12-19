@@ -223,7 +223,7 @@ a:hover {
 }
 
 #lead-about {
-    height: 1000px;;
+    height: 1000px;
     margin-top: -25px;
     margin-bottom: -30px;
 }
@@ -232,6 +232,8 @@ a:hover {
     padding-top: 350px;
 }
 
-footer {
-    margin-bottom: -20px;
+#lead-info {
+    height: 1500px;
 }
+
+
