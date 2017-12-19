@@ -1,4 +1,5 @@
 <div class="container">
-    <a href="/"><i class="fa fa-arrow-left"></i> Go Home</a>
+    {{#unless post.parentId}}<a href="/"><i class="fa fa-arrow-left"></i> Go Home</a>{{/unless}}
+    {{#if post.parentId}}<a href="/post/view/{{post.parentId}}"><i class="fa fa-arrow-up"></i> Go Up</a>{{/if}}
     {{> post post=post }}
 </div>

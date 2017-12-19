@@ -46,6 +46,7 @@
         </div>
 
         <hr> 
+        <div class="children">
         {{#if post.children}}
             {{#each post.children as |post| }}
                 {{#with ../this }}
@@ -53,3 +54,4 @@
                 {{/with }}
             {{/each}}
         {{/if}}
+        </div>
