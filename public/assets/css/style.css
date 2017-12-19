@@ -181,9 +181,12 @@ a:hover {
     background-color: blue;
 }
 
-.contributers {
-    text-align: center;
+#contributers { 
+    height: 35rem;
+}
 
+#technologies { 
+    height: 35rem;
 }
 
 .jumbotron {
@@ -191,7 +194,7 @@ a:hover {
    min-width: 100%;
    height: 32rem;
    top: 0;
-  left: 0;  
+   left: 0;  
 }
 
 .display-3{
@@ -204,7 +207,7 @@ a:hover {
 .bd-footer {
     text-align: center;
     font-size: 85%;
-    background-color:#868e96;
+    background-color:#1f1f1f;
 }
 
 .text-muted{
@@ -213,12 +216,21 @@ a:hover {
 }
 
 .footer-copyright {
-    background-color: #175db8;
+    background-color:#1f1f1f;
+
     width:auto;
 }
 
-.ccontainer-fluid {
-    width: 100%;
-    margin: auto;
-  
+#lead-about {
+    height: 1000px;;
+    margin-top: -25px;
+    margin-bottom: -30px;
+}
+
+#lead-text {
+    padding-top: 350px;
+}
+
+footer {
+    margin-bottom: -20px;
 }

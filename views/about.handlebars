@@ -1,13 +1,15 @@
-<main role="main">
+{{!-- <main role="main">
+
+
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators"></ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+                <img class="first-slide" src="" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption">
-                        <img class="rounded-circle" src="assets/images/cd.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <img src="../../assets/icons/logo.jpg" alt="CiviDisc Logo" width="140" height="140">
                         <h1>Welcome to CiviDisc!</h1>
                         <p>An online forum that encourages engaging discussion on a variety of topics in a self moderating environment. <!--Simply put, there is 90 minutes to discuss a topic and upvoting comments will allow for more time to be added to the current discussion. 
                             Once discussions have concluded, user are encouraged to review topics by commenting, posting, and starting new discussions.-->
@@ -16,119 +18,130 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+
+<div class="container-fluid bg-light" id="lead-about">
+
+
+
+        <div class="col text-center" id="lead-text">
+
+            {{!-- <img src="../../assets/icons/logo.jpg" alt="CiviDisc Logo" width="140" height="140"> --}}
+                {{!-- <h1 class="display-1">Welcome to CiviDisc</h1>
+                <br> --}}
+                <h2 class="font-weight-light">Self moderating discussions on a variety of topics<!--Simply put, there is 90 minutes to discuss a topic and upvoting comments will allow for more time to be added to the current discussion. 
+                    Once discussions have concluded, user are encouraged to review topics by commenting, posting, and starting new discussions.-->
+                </h2>
+                <br>
+                <button class="btn btn-outline-success"><a class="lead text-success" href="/login">Login</a></button>
+                <button class="btn btn-outline-success"><a class="lead text-success" href="/signup">Sign Up</a></button>
+                
+
+        </div>
+
+
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="jumbotron jumbotron-fluid bg-dark" id="contributers">
+                <!-- Three columns of text below the carousel -->
+            <h1 class="text-center text-light font-weight-light">Contributers</h2>
+            <div class="row text-center py-5 px-5">
+                    <div class="col text-light">
+                        <img class="rounded-circle my-4" src="https://avatars1.githubusercontent.com/u/5375645?s=460&v=4" alt="Daniel Orlovsky" width="140" height="140">
+                        <h2 class="font-weight-light">Daniel Orlovsky</h2>
+                        <p>The Backend Guru</p>
+                        <p>
+                            <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
+                        </p>
+                    </div>
+                    <!-- /.col-lg-3 -->
+                    <div class="col text-light">
+                        <img class="rounded-circle my-4" src="https://avatars0.githubusercontent.com/u/5986057?s=460&v=4" alt="Renato Zamudio" width="140" height="140">
+                        <h2 class="font-weight-light">Renato Zamudio</h2>
+                        <p>The Front End Master</p>
+                        <p>
+                            <!--a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
+                        </p>
+                    </div>
+                    <!-- /.col-lg-3 -->
+                    <div class="col text-light">
+                        <img class="rounded-circle my-4" src="https://avatars0.githubusercontent.com/u/29241179?s=460&v=4" alt="Michelle Jummy" width="140" height="140">
+                        <h2 class="font-weight-light">Michelle Jimmy</h2>
+                        <p>The Front End Wonderkid</p>
+                        <p>
+                            <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
+                        </p>
+                    </div>
+                    <!-- /.col-lg-3 -->
+                    <div class="col text-light">
+                        <img class="rounded-circle my-4" src="assets/images/cd.jpg" alt="Derek Gambill" width="140" height="140">
+                        <h2 class="font-weight-light">Derek Gambill</h2>
+                        <p>The Backend Genius </p>
+                        <p>
+                            <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
+                        </p>
+                    </div>
+            </div>
     </div>
+</div>
+        
+<div class="container-fluid">
 
-    <div class="container">
+    <div class="jumbotron jumbotron-fluid bg-white">
 
-
-        <div class="container marketing">
-
-            <!-- Three columns of text below the carousel -->
-            <h1 class="contributers">Contributers</h2>
-            <div class="row">
-                <div class="col-lg-3">
-                    <img class="rounded-circle" src="assets/images/cd.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Daniel Orlovsky</h2>
-                    <p>The Backend Guru</p>
-                    <p>
-                        <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
-                    </p>
+        <h1 class="text-center font-weight-light">Technologies Used</h1>
+        <br>
+            <div class="row text-center py-5 px-5">
+            <!-- /.col-lg-2 -->
+                <div class="col">
+                        <img class="img-fluid my-4" src="assets/images/bootstrap.png" alt="Bootstrap" width="160" height="160">
                 </div>
-                <!-- /.col-lg-3 -->
-                <div class="col-lg-3">
-                    <img class="rounded-circle" src="assets/images/cd.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Renato Zamudio</h2>
-                    <p>The Front End Master</p>
-                    <p>
-                        <!--a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
-                    </p>
+
+            <!-- /.col-lg-2 -->
+                <div class="col">
+                        <img class="img-fluid my-4" src="assets/images/express.png" alt="Express" width="160" height="160">
+                    
                 </div>
-                <!-- /.col-lg-3 -->
-                <div class="col-lg-3">
-                    <img class="rounded-circle" src="assets/images/cd.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Michelle Jimmy</h2>
-                    <p>The Front End Wonderkid</p>
-                    <p>
-                        <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
-                    </p>
+
+            <!-- /.col-lg-2 -->
+                <div class="col">
+                        <img class="img-fluid my-4" src="assets/images/node.png" alt="Node" width="160" height="160">
+                    
                 </div>
-                <!-- /.col-lg-3 -->
-                <div class="col-lg-3">
-                    <img class="rounded-circle" src="assets/images/cd.jpg" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Derek Gambill</h2>
-                    <p>The Backend Genius </p>
-                    <p>
-                        <!--<a class="btn btn-secondary" href="#" role="button">Review Discussion &raquo;</a>-->
-                    </p>
+
+            <!-- /.col-lg-2 -->
+                <div class="col">
+                        <img class="img-fluid my-4" src="assets/images/passport.png" alt="Passport" width="160" height="160">
+                </div>
+
+                <!-- /.col-lg-2 -->
+                <div class="col">
+                        <img class="img-fluid my-4" src="assets/images/sequelize.png" alt="Sequelize" width="160" height="160">
                 </div>
             </div>
-        
-                 <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
+    </div>   
+</div>
 
-                    <h1 class="display-3">Technologies Used</h1>
-                    <div class="row">
-                    <!-- /.col-lg-2 -->
-                    <div class="col-lg-2">
-                        <p>
-                            <img class="img1" src="assets/images/bootstrap.png" alt="Bootstrap" width="160" height="160">
-                        </p>
-                        
-                    </div>
-                    <!-- /.col-lg-2 -->
-                    <div class="col-lg-2">
-                        <p>
-                            <img class="img1" src="assets/images/express.png" alt="Express" width="160" height="160">
-                        </p>
-                       
-                    </div>
-                    <!-- /.col-lg-2 -->
-                    <div class="col-lg-2">
-                        <p>
-                            <img class="img1" src="assets/images/node.png" alt="Node" width="160" height="160">
-                        </p>
-                        
-                    </div>
-                    <!-- /.col-lg-2 -->
-                    <div class="col-lg-2">
-                        <p>
-                            <img class="img1" src="assets/images/passport.png" alt="Passport" width="160" height="160">
-                        </p>
-                    </div>
-                        <!-- /.col-lg-2 -->
-                    <div class="col-lg-2">
-                        <p>
-                            <img class="img1" src="assets/images/sequelize.png" alt="Sequelize" width="160" height="160">
-                        </p>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
                     
                         
                 
-<footer class="bd-footer text-muted">
-    <div class="ccontainer-fluid p-3 p-md-5">
-        <ul class="bd-footer-links">
-            <li>
-                <a href="https://cividisc.com/About">About</a>
-            </li>
-            <li>
-                <a href="https://cividisc.com/Dashboard">Dashboard</a>
-            </li>
-            <li>
-                <a href="https://cividisc.com/Post">Post</a>
-            </li>
-            <li>
-                <a href="https://cividisc.com/Topics">Topics</a>
-            </li>
-        </ul>
+<footer class="text-center bg-dark" >
+    <div class="container-fluid p-3 p-md-5">
+
+        <p><a class="text-light" href="https://civi-disc.herokuapp.com/">Home</a></p>        
+
+        <p><a class="text-light" href="https://civi-disc.herokuapp.com/about">About</a></p>
+
+        <p><a class="text-light" href="https://civi-disc.herokuapp.com/signup">Sign Up</a></p>
+
+        <p><a class="text-light" href="https://civi-disc.herokuapp.com/post/add">Post</a></p>
+
+        <p><a class="text-light" href="https://civi-disc.herokuapp.com/signup">Topics</a></p>
+        
+        <p class="text-muted"> CiviDisc © 2017 Copyright  </p>
     </div>
-    <!--Copyright-->
-    <div class="footer-copyright">
-        <div class="container-fluid">
-            © 2017 Copyright:
-            <a href="https://www.cividisc.com"> CiviDisc.com </a>
-    
-        </div>
 </footer>
