@@ -1,15 +1,23 @@
+// P A S S P O R T . J S
+// Passport.js works with passport to create a user authentication system.
+
+
 const bcrypt = require('bcrypt-nodejs');
 const db = require('../models');
 
 module.exports = function (passport, user) {
+    // GLOBALS
     var User = user;
     let LocalStrategy = require('passport-local').Strategy;
 
+    // serializeUser
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
 
+    // deserializeUser
     passport.deserializeUser(function(id, done) {
+        // Find the user by their id.
         User.findOne({ where: { id: id}}).then(function(user) {
             if(user) {
                 done(null, user.get());
@@ -18,17 +26,21 @@ module.exports = function (passport, user) {
             }
         })
     })
+
+    // Local sign-up.
     passport.use('local-signup', new LocalStrategy({
+            // Names of the fields on the form
             usernameField: 'email',
             passwordField: 'password',
             passReqToCallback: true
         },
         function (req, email, password, done) {
-
+            // Creates a hash of the password
             var generateHash = function (password) {
                 return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
             };
 
+            // Checks the user doesn't exist by email
             User.findOne({
                 where: {
                     email: email
@@ -39,12 +51,14 @@ module.exports = function (passport, user) {
                         message: "That email is already being used. "
                     });
                 } else {
+                    // Checks the user doesn't exist by display name
                     User.findOne({ where: { displayName: req.body.displayName }}).then(function(displayUser) {
                         if(displayUser) {
                             return done(null, false, {
-                                message: "That display name is already being user"
+                                message: "The display name is already being used."
                             });
                         }
+                        // Assign user data to new object
                         var userPassword = generateHash(password);
                         var data = {
                             email: email,
