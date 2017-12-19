@@ -4,7 +4,7 @@ $(function() {
     var displayNotify;
     var count = 0;
     function displayNotification(msg) {
-        $("#notification-bar").animate({ opacity: 1}, 200);
+        $("#notification-bar").animate({ opacity: 1, "z-index": 100 }, 200);
         $("#notify-bar").text(msg);
         count = 0;
         displayNotify = setInterval(countDown, 500);
@@ -13,7 +13,7 @@ $(function() {
     function countDown() {
         count++;
         if(count > 5) {
-            $("#notification-bar").animate({opacity: 0}, 200);
+            $("#notification-bar").animate({opacity: 0, "z-index": -100 }, 200);
             clearInterval(displayNotify);
         }
     }
