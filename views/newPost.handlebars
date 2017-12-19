@@ -44,6 +44,7 @@
                 $(document).ready(function() {
                     $("#submit-topic").on("click", function(e) {
                         e.preventDefault();
+                        var selectList = $("#topicId");
                         var newTopicName = { name: $("#topicName").val() };
                         $.ajax({
                             url: '/topics/create',
