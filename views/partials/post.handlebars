@@ -21,8 +21,11 @@
 
                 <p>{{ post.comment}}</p>
                 <div>
+                <img class="user-image" src="
+                    {{#if post.PostUser.imageUrl}}{{post.PostUser.imageUrl}}{{/if}}
+                    {{#unless post.PostUser.imageUrl}}../../assets/images/icon.png{{/unless}}"><br>
+                <small>By: {{ post.PostUser.displayName }}</small><br>
                 <small>In: {{>topic post.Topic }}</small>
-                <small>By: {{ post.PostUser.displayName }}</small>
                 </div>
                 <br>
                 {{#if user}}

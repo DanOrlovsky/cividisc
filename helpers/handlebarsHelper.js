@@ -6,11 +6,11 @@ function hbsHelpers(hbs) {
         defaultLayout: 'main',
         helpers: {
             ifTimeLeft: function(postDate, postLife) {
-                //console.log(postDate);
-                //console.log(postLife);
-                //console.log(block);
                 let timeLeft = (postDate + postLife) - moment().unix();
                 if(timeLeft > 0) return true;
+            },
+            canAddAvatar: function(rep) {
+                return rep > 150;
             },
             getTimeLeft: function(postDate, postLife) {
                 var timeLeft = (postDate + postLife - moment().unix()) / 60;

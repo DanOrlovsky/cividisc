@@ -39,29 +39,34 @@ module.exports = function (passport, user) {
                         message: "That email is already being used. "
                     });
                 } else {
+                    User.findOne({ where: { displayName: req.body.displayName }}).then(function(displayUser) {
+                        if(displayUser) {
+                            return done(null, false, {
+                                message: "That display name is already being user"
+                            });
+                        }
+                        var userPassword = generateHash(password);
+                        var data = {
+                            email: email,
+                            password: userPassword,
+                            firstName: req.body.firstname,
+                            lastName: req.body.lastname,
+                            displayName: req.body.displayName,
+                            isActive: true,
+                            rep: 0,
+                            usePoints: 100,
+                            upVotes: 0,
+                            downVotes: 0,
+                            timesVotedUp: 0,
+                            timesVotedDown: 0,
+                        };
 
-                    var userPassword = generateHash(password);
+                        User.create(data).then(function (newUser, created) {
+                            if (!newUser) return done(null, false);
+                            if (newUser) return done(null, newUser);
 
-                    var data = {
-                        email: email,
-                        password: userPassword,
-                        firstName: req.body.firstname,
-                        lastName: req.body.lastname,
-                        displayName: req.body.displayName,
-                        isActive: true,
-                        rep: 0,
-                        usePoints: 100,
-                        upVotes: 0,
-                        downVotes: 0,
-                        timesVotedUp: 0,
-                        timesVotedDown: 0,
-                    };
-
-                    User.create(data).then(function (newUser, created) {
-                        if (!newUser) return done(null, false);
-                        if (newUser) return done(null, newUser);
-
-                    })
+                        })
+                    });
                 }
             })
         }

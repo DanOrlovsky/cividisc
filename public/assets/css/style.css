@@ -1,6 +1,7 @@
 body {
     background-color: #fff;
     width: 100vw;
+    overflow-x: hidden;
 }
 
 #page-content {
@@ -153,6 +154,18 @@ a {
     color: #777;
 }
 
+.upload-box { 
+    max-width: 450px;
+    padding: 10px;
+}
+#img-upload {
+    border: 1px solid gray;
+}
+img.user-image {
+    max-height: 75px;
+    max-width: 75px;
+    border-radius: 50%;
+}
 a:hover { 
     color: rgb(0,200,81);
     text-decoration: none;
