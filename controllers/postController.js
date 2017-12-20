@@ -1,5 +1,5 @@
 const db = require('../models');
-const authHelper = require('../helpers/authHelper');
+const userHelper = require('../helpers/userHelper');
 const _ = require('underscore');
 const moment = require("moment");
 
@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
     });
 
     // GET THE newPost form
-    app.get('/post/add', authHelper.isLoggedIn, (req, res) => {
+    app.get('/post/add', userHelper.isLoggedIn, (req, res) => {
         if(!req.user.isActive) return res.render("inactiveUser");
         db.Topic.findAll().then((data) => {
             var canAddTopic = req.user.rep > 600;
@@ -136,7 +136,7 @@ module.exports = function (app, passport) {
         }
     });
     
-    app.post('/posts/remove/:id', authHelper.isLoggedIn, (req, res) => {
+    app.post('/posts/remove/:id', userHelper.isLoggedIn, (req, res) => {
         db.Post.findOne({
             where: {
                 id: req.params.id

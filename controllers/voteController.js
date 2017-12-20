@@ -1,4 +1,4 @@
-const authHelper = require('../helpers/authHelper');
+const userHelper = require('../helpers/userHelper');
 const db = require('../models');
 
 module.exports = function(app, passport) {
