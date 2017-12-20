@@ -4,6 +4,7 @@
   "description": "A civil discourse application aimed at minimizing ineffective commenting.",
   "main": "server.js",
   "dependencies": {
+    "aws-sdk": "^2.172.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "connect-busboy": "0.0.2",
@@ -23,7 +24,8 @@
     "passport-remember-me": "0.0.1",
     "passport-twitter": "^1.0.4",
     "sequelize": "^4.26.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

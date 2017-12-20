@@ -3,7 +3,14 @@ const db = require('../models');
 const moment = require('moment');
 const path = require('path');
 const busboy = require('busboy');
-const fs = require('fs');
+const AWS = require('aws-sdk');
+const uuidv1 = require('uuid/v1');
+var myBucket = "civi-disc";
+
+AWS.config.loadFromPath('config.json');
+
+var s3 = new AWS.S3({ params: { Bucket: myBucket }});
+
 
 function RenderDashboard(req, res, msg) {
     db.Post.findAll({
@@ -104,7 +111,7 @@ module.exports = function (app, passport) {
                     message: info.message
                 });
             }
-            console.log(user);
+            
             req.logIn(user, function (err) {
                 if (err) return next(err);
                 return res.redirect('/');
@@ -123,13 +130,24 @@ module.exports = function (app, passport) {
             }
             if (!goodExtension) return RenderDashboard(req, res, "Invalid file extension");
             //console.log(__dirname);
-            var fileUrl = 'assets/images/users/' + filename;
-            fileStream = fs.createWriteStream(__dirname + '/../public/' + fileUrl);
+            //var fileUrl = 'assets/images/users/' + filename;
+            /*fileStream = fs.createWriteStream(__dirname + '/../public/' + fileUrl);
             file.pipe(fileStream);
             fileStream.on('close', function() {
                 db.User.update({ imageUrl: '../../' + fileUrl }, {where: { id: req.user.id }}).then(() => {
                     res.redirect('/dashboard');
                 });
+            });*/
+            filename = uuidv1() + filename;
+            var params = {
+                Key: "avatars/" + filename,
+                Body: file,
+            }
+            s3.upload(params, function(err, data) {
+                if(err) throw err;
+                db.User.update({ imageUrl: data.Location }, {where: { id: req.user.id }}).then(() => {
+                    res.redirect('/dashboard');
+                });                
             });
         });
     });
