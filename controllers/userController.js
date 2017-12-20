@@ -135,7 +135,7 @@ module.exports = function (app, passport) {
                 Body: file,
             }
             s3.upload(params, function(err, data) {
-                if(err) throw err;
+                if(err) { console.log(err); throw err; }
                 db.User.update({ imageUrl: data.Location }, {where: { id: req.user.id }}).then(() => {
                     res.redirect('/dashboard');
                 });                
