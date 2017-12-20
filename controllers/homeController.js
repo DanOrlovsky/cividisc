@@ -1,5 +1,4 @@
 const db = require('../models');
-const authHelper = require('../helpers/authHelper');
 const Sequelize = require('sequelize');
 
 

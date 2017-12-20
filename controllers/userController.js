@@ -1,4 +1,4 @@
-const authHelper = require('../helpers/authHelper');
+const userHelper = require('../helpers/userHelper');
 const db = require('../models');
 const moment = require('moment');
 const path = require('path');
@@ -7,7 +7,7 @@ const AWS = require('aws-sdk');
 const uuidv1 = require('uuid/v1');
 var myBucket = "civi-disc";
 
-AWS.config.loadFromPath('config.json');
+//AWS.config.loadFromPath('config.json');
 
 var s3 = new AWS.S3({ params: { Bucket: myBucket }});
 
@@ -37,7 +37,7 @@ module.exports = function (app, passport) {
     app.get('/login', function (req, res) {
         res.render('accounts/login');
     });
-    app.get('/dashboard', authHelper.isLoggedIn, function (req, res) {
+    app.get('/dashboard', userHelper.isLoggedIn, function (req, res) {
         RenderDashboard(req, res, "");
     });
     app.get('/logout', function (req, res) {
@@ -45,7 +45,7 @@ module.exports = function (app, passport) {
             res.redirect('/');
         });
     });
-    app.get('/notifications', authHelper.isLoggedIn, (req, res) => {
+    app.get('/notifications', userHelper.isLoggedIn, (req, res) => {
         if (req.user) {
             db.Notification.findAll({
                 where: {
@@ -129,15 +129,6 @@ module.exports = function (app, passport) {
                 if (path.extname(filename).toLowerCase() === allowedExtensions[i]) goodExtension = true;
             }
             if (!goodExtension) return RenderDashboard(req, res, "Invalid file extension");
-            //console.log(__dirname);
-            //var fileUrl = 'assets/images/users/' + filename;
-            /*fileStream = fs.createWriteStream(__dirname + '/../public/' + fileUrl);
-            file.pipe(fileStream);
-            fileStream.on('close', function() {
-                db.User.update({ imageUrl: '../../' + fileUrl }, {where: { id: req.user.id }}).then(() => {
-                    res.redirect('/dashboard');
-                });
-            });*/
             filename = uuidv1() + filename;
             var params = {
                 Key: "avatars/" + filename,

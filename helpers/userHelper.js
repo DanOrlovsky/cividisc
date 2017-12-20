@@ -1,6 +1,6 @@
+const db = require('../models');
 
-
-var authHelper = {
+var userHelper = {
     userHasRep: function(db, userId) {
         return new Promise(function(resolve, reject) {
             db.User.findOne({ where: { id: userId } }).then((data) => {
@@ -20,6 +20,6 @@ var authHelper = {
         } else {
             return res.redirect('/login');
         }
-    }
+    },
 }
-module.exports = authHelper;
+module.exports = userHelper;
