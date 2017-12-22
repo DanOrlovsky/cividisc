@@ -8,7 +8,7 @@ const session = require('express-session')
 const exphbs = require('express-handlebars');
 const path = require('path');
 const busboy = require('connect-busboy');
-
+//const paginateHelper = require('express-handlebars-paginate');
 
 
 
@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(busboy());
 var handlebars = require('./helpers/handlebarsHelper')(exphbs);
+handlebars.handlebars.registerHelper('paginate', require('handlebars-paginate'));
+
 app.engine('handlebars', handlebars.engine);
 
 app.set('view engine', 'handlebars');

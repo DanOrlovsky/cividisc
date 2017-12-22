@@ -7,7 +7,6 @@ const AWS = require('aws-sdk');
 const uuidv1 = require('uuid/v1');
 var myBucket = "civi-disc";
 
-//AWS.config.loadFromPath('config.json');
 
 var s3 = new AWS.S3({ params: { Bucket: myBucket }});
 
