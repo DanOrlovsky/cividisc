@@ -7,7 +7,9 @@ const pageSize = 10;
 function RenderHomepage(req, res, posts) {
     db.Topic.findAll().then(topics => {
         var page = posts.page || 1;
-        return res.render('index', { pagination: { page: page, pageCount: posts.count / pageSize }, posts: posts.rows, topics: topics})
+        var pageCount = posts.count / pageSize;
+        var limit = pageCount > 10 ? 10 : pageCount;
+        return res.render('index', { pagination: { page: page, pageCount: pageCount, limit: limit }, posts: posts.rows, topics: topics})
     });
 }
 
