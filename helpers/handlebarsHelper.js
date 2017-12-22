@@ -17,6 +17,10 @@ function hbsHelpers(hbs) {
                 if(timeLeft < 0) timeLeft = 0; 
                 return moment(timeLeft);
             },
+            // RETURNS CURRENT YEAR FOR COPYRIGHT.  
+            getYear: function() {
+                return moment().format("YYYY");
+            }
         }
     })
 }

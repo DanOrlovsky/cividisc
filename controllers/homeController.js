@@ -1,11 +1,13 @@
 const db = require('../models');
 const Sequelize = require('sequelize');
 
+const pageSize = 10;
 
 // Function to render the homepage with posts that are passed
 function RenderHomepage(req, res, posts) {
     db.Topic.findAll().then(topics => {
-        return res.render('index', {posts: posts, topics: topics})
+        var page = posts.page || 1;
+        return res.render('index', { pagination: { page: page, pageCount: posts.count / pageSize }, posts: posts.rows, topics: topics})
     });
 }
 
@@ -13,10 +15,16 @@ module.exports = function (app, passport) {
 
     // Sends all the available posts to the homepage
     app.get('/', (req, res) => {
-        // Get top level Posts
-        db.Post.findAll({where: { parentId: null, isPublished: true }, order: [[ 'postDate', "DESC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ]} ).then(function(posts) {
-            RenderHomepage(req, res, posts);
-        });
+        var offsetNum = req.query.page ? (req.query.page - 1) * pageSize : 0;
+        db.Post.
+            findAndCountAll({where: { parentId: null, isPublished: true }, 
+                order: [[ 'postDate', "DESC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ],
+                offset: offsetNum, limit: pageSize } )
+            .then(function(posts) {
+                posts.page = req.query.page;
+                RenderHomepage(req, res, posts);
+            }
+        );
     });
 
     // Sends posts by topic to the homepage

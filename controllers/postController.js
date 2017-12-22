@@ -32,13 +32,17 @@ function getAllPosts(post) {
 
 
 module.exports = function (app, passport) {
+    // Route for an individual post
     app.get('/post/view/:id', (req, res) => {
         db.Post.findOne({
             where: {
                 id: req.params.id
+                // Grab related data
             }, include: [ 'PostUser', 'Topic' ]
         }).then((post) => {
+            // Determine whether the post is closed or not.
             post.isClosed = (moment().unix() < post.postDate + post.postLife);
+            // Get all posts from this one, creating the heirarchy
             getAllPosts(post).then((data) => {
                 return res.render("viewPost", {
                     post: data,
@@ -59,6 +63,7 @@ module.exports = function (app, passport) {
         });
     });
 
+    // When 
     app.post('/posts/add',  (req, res) => {
         if(!req.user) return res.json({ message: "You must be logged in to perform this action."})
         if(!req.user.isActive) return res.json({ message: "Sorry, you are not an active user at this time" });
