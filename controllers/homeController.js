@@ -31,7 +31,11 @@ module.exports = function (app, passport) {
 
     // Sends posts by topic to the homepage
     app.get('/topic/:topicId', (req, res) => {
-        db.Post.findAll({ where: { topicId: req.params.topicId, isPublished: true }, order: [[ 'postDate', "DESC"]], include: [ 'PostUser', "Topic" ]} ).then(posts => { 
+        var offsetNum = req.query.page ? (req.query.page - 1) * pageSize : 0;
+        db.Post.
+            findAndCountAll({ where: { topicId: req.params.topicId, isPublished: true }, 
+                order: [[ 'postDate', "DESC"]], include: [ 'PostUser', "Topic" ],
+            offset: offsetNum, limit: pageSize}).then(posts => { 
             RenderHomepage(req, res, posts);
         })
     })
@@ -42,7 +46,8 @@ module.exports = function (app, passport) {
         const Op = Sequelize.Op;
         if(!term) return res.redirect('/');
         db.Post.findAll({ where: { title: { [Op.like] : "%" + term + "%"} }, order: [[ 'postDate', "DESC" ]], include: [ 'PostUser', "Topic" ]} ).then((posts) => {
-            RenderHomepage(req, res, posts);
+            //RenderHomepage(req, res, posts);
+            return res.render()
         })
     })
 
