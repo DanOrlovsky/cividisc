@@ -25,7 +25,8 @@
                     {{#if post.PostUser.imageUrl}}{{post.PostUser.imageUrl}}{{/if}}
                     {{#unless post.PostUser.imageUrl}}../../assets/images/icon.png{{/unless}}"><br>
                 <small>By: {{ post.PostUser.displayName }}</small><br>
-                <small>In: {{>topic post.Topic }}</small>
+                <small>In: {{>topic post.Topic }}</small><br />
+                <small>Comments: {{ post.count}}</small>
                 </div>
                 <br>
                 {{#if user}}
