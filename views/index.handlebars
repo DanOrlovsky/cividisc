@@ -24,6 +24,7 @@
                     {{/with}}
                 {{/each}}
             {{/if}}
+            {{#unless noPagination}}
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     {{#paginate pagination type="first"}}
@@ -67,6 +68,7 @@
                 <ul class="pagination">
                 </ul>
             </nav>
+            {{/unless}}
         </div>
         <div class="col-lg border mx-3 px-5 py-4 d-none d-md-block">
             <h4 class="font-weight-light">Community Rules</h4>
