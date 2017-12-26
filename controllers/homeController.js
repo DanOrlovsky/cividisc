@@ -4,12 +4,13 @@ const Sequelize = require('sequelize');
 const pageSize = 10;
 
 // Function to render the homepage with posts that are passed
-function RenderHomepage(req, res, posts) {
+function RenderHomepage(req, res, posts, searched=false) {
     db.Topic.findAll().then(topics => {
         var page = posts.page || 1;
         var pageCount = posts.count / pageSize;
         var limit = pageCount > 10 ? 10 : pageCount;
-        return res.render('index', { pagination: { page: page, pageCount: pageCount, limit: limit }, posts: posts.rows, topics: topics})
+        if(!searched) return res.render('index', { pagination: { page: page, pageCount: pageCount, limit: limit }, posts: posts.rows, topics: topics})
+        else return res.render('index', {posts: posts, topics: topics, noPagination: true})
     });
 }
 
@@ -46,8 +47,8 @@ module.exports = function (app, passport) {
         const Op = Sequelize.Op;
         if(!term) return res.redirect('/');
         db.Post.findAll({ where: { title: { [Op.like] : "%" + term + "%"} }, order: [[ 'postDate', "DESC" ]], include: [ 'PostUser', "Topic" ]} ).then((posts) => {
-            //RenderHomepage(req, res, posts);
-            return res.render()
+            RenderHomepage(req, res, posts, searched=true);
+            //return res.render()
         })
     })
 
