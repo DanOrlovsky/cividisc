@@ -43,10 +43,30 @@ module.exports = function (app, passport) {
             // Determine whether the post is closed or not.
             post.isClosed = (moment().unix() < post.postDate + post.postLife);
             // Get all posts from this one, creating the heirarchy
+            var promises = [];
             getAllPosts(post).then((data) => {
-                return res.render("viewPost", {
-                    post: data,
-                });
+                
+                promises.push(new Promise(function(resolve, reject) { 
+                    db.Post.count({ where: { parentId: data.id}}).then(count => { console.log(count); resolve(count); })
+                }));
+                
+                for(var i = 0; i < data.children.length; i++) {
+                    promises.push(new Promise(function(resolve, reject) { 
+                        db.Post.count({ where: { parentId: data.children[i].id}}).then(count => { console.log(count); resolve(count); })
+                    }));
+                }
+                
+                Promise.all(promises).then((counts) => {
+                    for(var i = 0; i < counts.length; i++) {
+                        if(i === 0)
+                            data.count = counts[i];
+                        else
+                            data.children[i-1].count = counts[i];
+                    }
+                    return res.render("viewPost", {
+                        post: data,
+                    });
+                })
             })
         })
     });

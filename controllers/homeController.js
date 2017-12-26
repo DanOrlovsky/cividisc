@@ -24,8 +24,20 @@ module.exports = function (app, passport) {
                 order: [[ 'postDate', "DESC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ],
                 offset: offsetNum, limit: pageSize } )
             .then(function(posts) {
-                posts.page = req.query.page;
-                RenderHomepage(req, res, posts);
+                var promises = [];
+                
+                for(var i = 0; i < posts.rows.length; i++) {
+                    promises.push(new Promise(function(resolve, reject) { 
+                        db.Post.count({ where: { parentId: posts.rows[i].id}}).then(count => {  resolve(count); })
+                    }));
+                }
+                Promise.all(promises).then((counts) => {
+                    for(var i = 0; i < counts.length; i++) {
+                        posts.rows[i].count = counts[i];
+                    }
+                    posts.page = req.query.page;
+                    RenderHomepage(req, res, posts);
+                })
             }
         );
     });
