@@ -21,7 +21,7 @@ module.exports = function (app, passport) {
         var offsetNum = req.query.page ? (req.query.page - 1) * pageSize : 0;
         db.Post.
             findAndCountAll({where: { parentId: null, isPublished: true }, 
-                order: [[ 'postDate', "ASC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ],
+                order: [[ 'postDate', "DESC"], ['upVotes', 'DESC']], include: [ 'PostUser', "Topic" ],
                 offset: offsetNum, limit: pageSize } )
             .then(function(posts) {
                 posts.page = req.query.page;
@@ -35,7 +35,7 @@ module.exports = function (app, passport) {
         var offsetNum = req.query.page ? (req.query.page - 1) * pageSize : 0;
         db.Post.
             findAndCountAll({ where: { topicId: req.params.topicId, isPublished: true }, 
-                order: [[ 'postDate', "DESC"]], include: [ 'PostUser', "Topic" ],
+                order: [[ 'postDate', "ASC"]], include: [ 'PostUser', "Topic" ],
             offset: offsetNum, limit: pageSize}).then(posts => { 
             RenderHomepage(req, res, posts);
         })
