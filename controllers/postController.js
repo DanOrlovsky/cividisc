@@ -137,7 +137,7 @@ module.exports = function (app, passport) {
                     db.User.findOne({ where: { id: firstPost.userId }}).then((user) => {
                         req.body.title = "A reply to: " + user.displayName;
                         db.Notification.create({ 
-                            text: "A user has replied to your post!", 
+                            text: req.user.displayName + " has replied to your post!", 
                             userId: firstPost.userid, 
                             isRead: false,
                             url: '/post/view/' + replyToId 
@@ -153,11 +153,11 @@ module.exports = function (app, passport) {
                         })            
                     })
                 } else {
-                    return res.json({ message: "This post has been closed."});
+                    return res.status(200).json({ message: "This post has been closed."});
                 }
             })
         } else {
-            return res.json({ message: "You do not have enough Discs to make this happen"})
+            return res.status(200).json({ message: "You do not have enough Discs to make this happen"})
         }
     });
     

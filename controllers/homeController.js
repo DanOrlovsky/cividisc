@@ -35,7 +35,7 @@ module.exports = function (app, passport) {
                     for(var i = 0; i < counts.length; i++) {
                         posts.rows[i].count = counts[i];
                     }
-                    posts.page = req.query.page;
+                    //posts.page = req.query.page;
                     RenderHomepage(req, res, posts);
                 })
             }
@@ -49,8 +49,20 @@ module.exports = function (app, passport) {
             findAndCountAll({ where: { topicId: req.params.topicId, isPublished: true }, 
                 order: [[ 'postDate', "ASC"]], include: [ 'PostUser', "Topic" ],
             offset: offsetNum, limit: pageSize}).then(posts => { 
-            RenderHomepage(req, res, posts);
-        })
+                var promises = [];
+                for(var i = 0; i < posts.rows.length; i++) {
+                    promises.push(new Promise(function(resolve, reject) { 
+                        db.Post.count({ where: {parentId: posts.rows[i].id}}).then(count => {resolve(count); })
+                    }));
+                }
+                Promise.all(promises).then((counts) => {
+                    for(var i = 0; i < counts.length; i++) {
+                        posts.rows[i].count = counts[i];
+                    }
+                    RenderHomepage(req, res, posts);
+                })
+            }
+        )
     })
     
     // Sends posts by search query to the homepage
