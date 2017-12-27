@@ -9,7 +9,7 @@
         <span class="mx-2 my-1 downvotes{{post.id}} vote-count lead">{{ post.downVotes}}</span>
         <br>
         <a href="" class="vote-down" data-id="{{post.id}}"><i class="fa fa-ban fa-2x discdown" aria-hidden="true"></i></a>
-        {{/if}}s3
+        {{/if}}
     </div>
     <div class="col-sm-8 col-xl-10">
         <h4 class="font-weight-light"><a href="/post/view/{{post.id}}" >{{ post.title }}</a></h4>
@@ -23,7 +23,7 @@
             {{#unless post.PostUser.imageUrl}}../../assets/images/icon.png{{/unless}}"><br>
         <small>By: {{ post.PostUser.displayName }}</small><br>
         <small>In: {{>topic post.Topic }}</small><br />
-        <small>Replies: <a href="/post/view/{{post.id}}"><h4>{{getReplies post.id }}</h4></a></small>
+        <small>Replies: <a href="/post/view/{{post.id}}"><span>{{ post.count }}</span></a></small>
         </div>
         <br>
         {{#if user}}

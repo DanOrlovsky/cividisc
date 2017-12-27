@@ -57,7 +57,15 @@
                 <a class="nav-link" href="/logout">Logout</a>
               </li>
               <li class="nav-item">
-                <a href="/notifications" class="nav-link"><i class="fa fa-bell-o" id="notify-bell"></i></a>
+                  <a href="/notifications" class="nav-link"><i class="fa fa-bell-o" 
+                  {{#if user.unreadNotifications}}
+                    style="color: green; font-weight: 800;"
+                  {{/if}}
+                  id="notify-bell"></i>
+                  {{#if user.unreadCount}}
+                    <span class="countBall">{{ user.unreadCount }}</span>
+                  {{/if}}
+                  </a>
               </li>
             {{/if}}
           </ul>
@@ -84,20 +92,20 @@
       <div class="row">
         <div class="col-xl-3"></div>
         <div class="col">
-          <p><a class="text-muted lead" href="https://civi-disc.herokuapp.com/">Home</a></p>        
+          <p><a class="text-muted lead" href="/">Home</a></p>        
         </div>
 
         <div class="col">
-          <p><a class="text-muted lead" href="https://civi-disc.herokuapp.com/about">About</a></p>
+          <p><a class="text-muted lead" href="/about">About</a></p>
         </div>
 
         <div class="col">
-          <p><a class="text-muted lead" href="https://civi-disc.herokuapp.com/signup">Sign Up</a></p>
+          <p><a class="text-muted lead" href="/signup">Sign Up</a></p>
         </div>
 
         {{#if user}}
         <div class="col">
-          <p><a class="text-muted lead" href="https://civi-disc.herokuapp.com/post/add">Post</a></p>
+          <p><a class="text-muted lead" href="/post/add">Post</a></p>
         </div>
         {{/if}}
         <div class="col-xl-3"></div>

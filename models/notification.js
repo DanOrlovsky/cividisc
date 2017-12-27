@@ -14,6 +14,5 @@ module.exports = function(sequelize, DT) {
         url: DT.STRING,
         isRead: DT.BOOLEAN,
     });
-
     return Notification;
 }

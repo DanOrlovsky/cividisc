@@ -1,5 +1,6 @@
 const moment = require('moment');
 const path = require('path');
+const db = require('../models');
 function hbsHelpers(hbs) {
     
     return hbs.create({
@@ -20,7 +21,12 @@ function hbsHelpers(hbs) {
             // RETURNS CURRENT YEAR FOR COPYRIGHT.  
             getYear: function() {
                 return moment().format("YYYY");
-            }
+            },
+//            userHasUnreadNotifications: function(id) {
+//                db.Notification.count({ where: { userId: id, isRead: false}}).then(count => {
+//                    return count>0;
+//                })
+//            }        
         }
     })
 }
