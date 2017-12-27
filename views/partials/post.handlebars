@@ -1,58 +1,55 @@
 
-        <div class="row post">
-            <div class="col-sm-2 col-xl-1">
+<div class="row post">
+    <div class="col-sm-2 col-xl-1">
 
-                {{#if user}}
-                <a href="" class="vote-up" data-id="{{ post.id }}"><i class="fa fa-clock-o fa-2x discup" aria-hidden="true"></i>
-                </a>
-                <br>
-                <span class="mx-2 text-success upvotes{{post.id}} vote-count lead">{{ post.upVotes }}</span>
-                <br>
-                <span class="mx-2 my-1 downvotes{{post.id}} vote-count lead">{{ post.downVotes}}</span>
-                <br>
-                <a href="" class="vote-down" data-id="{{post.id}}"><i class="fa fa-ban fa-2x discdown" aria-hidden="true"></i>
-                </a>
-                {{/if}}
-            </div>
-            <div class="col-sm-8 col-xl-10">
-                <h4 class="font-weight-light"><a href="/post/view/{{post.id}}" >{{ post.title }}</a></h4>
-
-                {{#if post.url}}<p class="text-muted"><a href="{{post.url}}" class="text-success">Article Link</a></p>{{/if}}
-
-                <p>{{ post.comment}}</p>
-                <div>
-                <img class="user-image" src="
-                    {{#if post.PostUser.imageUrl}}{{post.PostUser.imageUrl}}{{/if}}
-                    {{#unless post.PostUser.imageUrl}}../../assets/images/icon.png{{/unless}}"><br>
-                <small>By: {{ post.PostUser.displayName }}</small><br>
-                <small>In: {{>topic post.Topic }}</small><br />
-                <small>Comments: {{ post.count}}</small>
-                </div>
-                <br>
-                {{#if user}}
-                    {{#if (ifTimeLeft post.postDate post.postLife) }}
-                        <div class="reply-box">
-                            <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
-                            <button class="btn btn-outline-success replyBtn" data-id="{{ post.id }}">Reply</button>
-                        </div>
-                    {{/if}}
-                {{/if}}
-            </div>
-
-            <div class="col-sm-2 col-xl-1">
-                <p class="timeLeft text-center lead">Time Left </p>
-                <br>
-                <h2 class="lead text-center"> {{getTimeLeft post.postDate post.postLife}}<h2>
-            </div>
-        </div>
-
-        <hr> 
-        <div class="children">
-        {{#if post.children}}
-            {{#each post.children as |post| }}
-                {{#with ../this }}
-                    {{> post post=post}}
-                {{/with }}
-            {{/each}}
+        {{#if user}}
+        <a href="" class="vote-up" data-id="{{ post.id }}"><i class="fa fa-clock-o fa-2x discup" aria-hidden="true"></i></a>
+        <br>
+        <span class="mx-2 text-success upvotes{{post.id}} vote-count lead">{{ post.upVotes }}</span><br>
+        <span class="mx-2 my-1 downvotes{{post.id}} vote-count lead">{{ post.downVotes}}</span>
+        <br>
+        <a href="" class="vote-down" data-id="{{post.id}}"><i class="fa fa-ban fa-2x discdown" aria-hidden="true"></i></a>
         {{/if}}
+    </div>
+    <div class="col-sm-8 col-xl-10">
+        <h4 class="font-weight-light"><a href="/post/view/{{post.id}}" >{{ post.title }}</a></h4>
+
+        {{#if post.url}}<p class="text-muted"><a href="{{post.url}}" class="text-success">Article Link</a></p>{{/if}}
+
+        <p>{{ post.comment}}</p>
+        <div>
+        <img class="user-image" src="
+            {{#if post.PostUser.imageUrl}}{{post.PostUser.imageUrl}}{{/if}}
+            {{#unless post.PostUser.imageUrl}}../../assets/images/icon.png{{/unless}}"><br>
+        <small>By: {{ post.PostUser.displayName }}</small><br>
+        <small>In: {{>topic post.Topic }}</small><br />
+        <small>Replies: <a href="/post/view/{{post.id}}"><span>{{ post.count }}</span></a></small>
         </div>
+        <br>
+        {{#if user}}
+            {{#if (ifTimeLeft post.postDate post.postLife) }}
+                <div class="reply-box">
+                    <textarea id="replyTo{{post.id}}" class="form-control reply" cols='4'></textarea>
+                    <button class="btn btn-outline-success replyBtn" data-id="{{ post.id }}">Reply</button>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="col-sm-2 col-xl-1">
+        <p class="timeLeft text-center lead">Time Left </p>
+        <br>
+        <h2 class="lead text-center"> {{getTimeLeft post.postDate post.postLife}}<h2>
+    </div>
+</div>
+
+<hr> 
+<div class="children">
+{{#if post.children}}
+    {{#each post.children as |post| }}
+        {{#with ../this }}
+            {{> post post=post}}
+        {{/with }}
+    {{/each}}
+{{/if}}
+</div>

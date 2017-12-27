@@ -34,7 +34,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport.js')(passport, db.User);
 app.use(function(req, res, next) {
-    res.locals.user = req.user;
+    if(req.user) {
+        db.Notification.findAndCountAll({ where: { userId: req.user.id, isRead: false}}).then(notifications => {
+            req.user.unreadNotifications = notifications.rows;
+            req.user.unreadCount = notifications.count;
+            res.locals.user = req.user;
+        })
+    }
     next();
 });
 
