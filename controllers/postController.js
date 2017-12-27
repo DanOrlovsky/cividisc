@@ -138,7 +138,7 @@ module.exports = function (app, passport) {
                         req.body.title = "A reply to: " + user.displayName;
                         db.Notification.create({ 
                             text: req.user.displayName + " has replied to your post!", 
-                            userId: firstPost.userid, 
+                            userId: firstPost.userId, 
                             isRead: false,
                             url: '/post/view/' + replyToId 
                         }).then(() => {
