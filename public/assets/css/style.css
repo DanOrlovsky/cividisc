@@ -24,7 +24,10 @@ body {
 #inputEmail, #inputPassword {
     max-width: 350px;
 }
-
+img { 
+    max-height: 300px;
+    width: auto;
+}
 .discup {
     max-width: 30px;
     margin-bottom: 10px;

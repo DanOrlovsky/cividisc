@@ -2,6 +2,7 @@ const db = require('../models');
 const userHelper = require('../helpers/userHelper');
 const _ = require('underscore');
 const moment = require("moment");
+const sanitizeHtml = require("sanitize-html");
 
 // Function that recursively gets all children posts
 function getAllPosts(post) {
@@ -73,7 +74,7 @@ module.exports = function (app, passport) {
 
     // GET THE newPost form
     app.get('/post/add', userHelper.isLoggedIn, (req, res) => {
-        if(!req.user.isActive) return res.render("inactiveUser");
+        if(!req.user.isActive) return res.render("inactiveUser");        
         db.Topic.findAll().then((data) => {
             var canAddTopic = req.user.rep > 600;
             return res.render("newPost", {
@@ -91,10 +92,11 @@ module.exports = function (app, passport) {
         req.body.userId = req.user.id;
         req.user.usePoints -= 5;
         req.user.rep += 5;
-        
+        console.log(req.body);
         if(req.user.usePoints > 0) {
             var strMessage = '';            
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
+                req.body.comment = sanitizeHtml(req.body.comment, { allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])});
                 req.body.postDate = moment().unix();
                 req.body.postLife = 60*90;
                 req.body.isPublished = true;
@@ -102,14 +104,14 @@ module.exports = function (app, passport) {
                 req.body.downVotes = 0;
                 req.body.User = req.user;
                 db.Post.create(req.body).then(function (data) {
-                    return res.redirect('/post/view/' + data.id);
+                    return res.json({ returnUrl: '/post/view/' + data.id })
                 }).catch(function (err) {
-                    return res.redirect('/');
+                    return res.json({ message: "An error occurred"});
                 })
             });
         } else {
             req.user+=5;
-            return res.send({ message: "You do not have enough discs to make this happen."} );
+            return res.json({ message: "You do not have enough discs to make this happen."} );
         }
     });
 
