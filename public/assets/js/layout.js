@@ -89,7 +89,7 @@ $(function() {
             data: formData,
             success: (response) => {
                 if(response.returnUrl) {
-                    window.location.replace(response.returlUrl);
+                    window.location.replace(response.returnUrl);
                 } else if(response.message) {
                     displayNotification(response.message);
                 }

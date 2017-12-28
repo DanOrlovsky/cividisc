@@ -104,7 +104,7 @@ module.exports = function (app, passport) {
                 req.body.downVotes = 0;
                 req.body.User = req.user;
                 db.Post.create(req.body).then(function (data) {
-                    return res.json({ returnUrl: '/post/view/' + data.id })
+                    return res.json({ "returnUrl" : '/post/view/' + data.id })
                 }).catch(function (err) {
                     return res.json({ message: "An error occurred"});
                 })
