@@ -18,6 +18,9 @@ body {
     background-color: #eeeeee;
     
 }
+.logo{
+    font-size: 28px;
+}
 #inputEmail, #inputPassword {
     max-width: 350px;
 }

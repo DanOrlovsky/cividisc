@@ -87,11 +87,12 @@ module.exports = function(app, passport) {
                     downVotes = post.downVotes;
                     user.downVotes++;
                     user.rep--;
-                        let updating = [];
-                        updating.push(user.update({ downVotes: user.downVotes, rep: user.Rep }));
-                        updating.push(db.User.update(req.user, {where: {id: req.user.id }}));
-                        updating.push(post.update({ downVotes: post.downVotes, postLife: post.postLife }));
-                        return Promise.all(updating);
+
+                    let updating = [];
+                    updating.push(user.update({ downVotes: user.downVotes, rep: user.Rep }));
+                    updating.push(db.User.update(req.user, {where: {id: req.user.id }}));
+                    updating.push(post.update({ downVotes: post.downVotes, postLife: post.postLife }));
+                    return Promise.all(updating);
                 })
                 .then(() => res.json({ message: "Vote cast!", downVotes: downVotes }))
                 .catch(err => res.json({ message: "Error happened" }))
