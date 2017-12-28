@@ -32,7 +32,7 @@ module.exports = function(app, passport) {
                             userId: user.id, 
                             url: '/post/view/' + post.id, 
                             isRead: false, 
-                            text: "Your post has been voted up and you've received more Discs!"                                 
+                            text: req.user.displayName + " has voted up your post and you've received " + 10 + " more Discs!",                                 
                         })
                         .then(() => {
                             let updating = [];
