@@ -26,6 +26,7 @@
     "passport-local": "^1.0.0",
     "passport-remember-me": "0.0.1",
     "passport-twitter": "^1.0.4",
+    "sanitize-html": "^1.16.3",
     "sequelize": "^4.26.0",
     "underscore": "^1.8.3",
     "uuid": "^3.1.0"

@@ -64,6 +64,7 @@ $(function() {
         })
     })
     $("#submit-now").on('click', function(e) {
+        e.preventDefault();
         var msgString = "";
         var failed = false;
         if($("#topicId").val() == -1) {
@@ -77,7 +78,24 @@ $(function() {
         if(failed){
             e.preventDefault();
             displayNotification(msgString);
+            return;
         }
+        var formData = $("#add-item").serializeArray();
+        formData.push({"name" :"comment", "value":$("#comment").html()});
+        // action="/posts/add"
+        $.ajax({
+            url: "/posts/add",
+            method: "POST",
+            data: formData,
+            success: (response) => {
+                if(response.returnUrl) {
+                    window.location.replace(response.returlUrl);
+                } else if(response.message) {
+                    displayNotification(response.message);
+                }
+            }
+        })
+
         //alert($("#topicId").val());
     })
 })

@@ -16,7 +16,7 @@
 
         {{#if post.url}}<p class="text-muted"><a href="{{post.url}}" class="text-success">Article Link</a></p>{{/if}}
 
-        <p>{{ post.comment}}</p>
+        <p>{{{ post.comment }}}</p>
         <div>
         <img class="user-image" src="
             {{#if post.PostUser.imageUrl}}{{post.PostUser.imageUrl}}{{/if}}
