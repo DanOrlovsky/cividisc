@@ -5,7 +5,7 @@ const pageSize = 10;
 
 // Function to render the homepage with posts that are passed
 function RenderHomepage(req, res, posts, searched=false) {
-    db.Topic.findAll().then(topics => {
+    db.Topic.findAll({ order: [[ 'name', 'ASC']]}).then(topics => {
         var page = posts.page || 1;
         var pageCount = Math.ceil(posts.count / pageSize);
         var limit = pageCount > 10 ? 10 : pageCount;
