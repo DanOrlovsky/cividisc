@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport(smtpConfig);
 
 function sendVerificationEmail(req, user) {
     let message = {
-        from: '"CiviDisc Server"',
+        from: 'civi-disc@wedotechstuff.com',
         to: user.email,
         subject: "Welcome to Civi-Disc!  Please verify email.",
         text: `Thank you for joining Civi-Disc, ${ user.firstName } ${ user.lastName}.\n
