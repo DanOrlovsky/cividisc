@@ -5,6 +5,7 @@ const path = require('path');
 const busboy = require('busboy');
 const AWS = require('aws-sdk');
 const uuidv1 = require('uuid/v1');
+const emailHelper = require('../helpers/emailHelper');
 var myBucket = "civi-disc";
 
 
@@ -95,7 +96,9 @@ module.exports = function (app, passport) {
             }
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                return res.redirect('/');
+                emailHelper.sendVerificationEmail(req, user).then(info => {
+                    return res.redirect('/');
+                });
             })
         })(req, res, next);
     });
