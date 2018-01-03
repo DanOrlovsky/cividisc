@@ -48,12 +48,12 @@ module.exports = function (app, passport) {
             getAllPosts(post).then((data) => {
                 
                 promises.push(new Promise(function(resolve, reject) { 
-                    db.Post.count({ where: { parentId: data.id}}).then(count => { console.log(count); resolve(count); })
+                    db.Post.count({ where: { parentId: data.id}}).then(count => { resolve(count); })
                 }));
                 
                 for(var i = 0; i < data.children.length; i++) {
                     promises.push(new Promise(function(resolve, reject) { 
-                        db.Post.count({ where: { parentId: data.children[i].id}}).then(count => { console.log(count); resolve(count); })
+                        db.Post.count({ where: { parentId: data.children[i].id}}).then(count => { resolve(count); })
                     }));
                 }
                 
@@ -92,7 +92,6 @@ module.exports = function (app, passport) {
         req.body.userId = req.user.id;
         req.user.usePoints -= 5;
         req.user.rep += 5;
-        console.log(req.body);
         if(req.user.usePoints > 0) {
             var strMessage = '';            
             db.User.update(req.user, { where: { id: req.user.id}}).then(function (data) {
