@@ -29,8 +29,8 @@ function sendVerificationEmail(req, user) {
 
     return new Promise(function(resolve, reject) {
         transporter.sendMail(message, (err, info) => {
-            if(error) {
-                reject(error);
+            if(err) {
+                reject(err);
             }
             resolve(info);
         })
