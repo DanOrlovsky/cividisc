@@ -19,9 +19,9 @@ function sendVerificationEmail(req, user) {
         to: user.email,
         subject: "Welcome to Civi-Disc!  Please verify email.",
         text: `Thank you for joining Civi-Disc, ${ user.firstName } ${ user.lastName}.\n
-                Please visit ${ req.protocol }/verifyUser/?id=${ user.Id } to finish the registration process and begin using CiviDisc!`,
+                Please visit ${ req.headers.refer }/verifyUser/?id=${ user.id } to finish the registration process and begin using CiviDisc!`,
         html: `<p>Thank you for joining Civi-Disc, ${ user.firstName } ${ user.lastName}.</p>
-                <p>Please visit <a href="${ req.headers.referer }/verifyUser/?id=${ user.Id }">${ req.headers.referer }/verifyUser/?id=${ user.Id }</a> to finish the 
+                <p>Please visit <a href="${ req.headers.referer }/verifyUser/?id=${ user.id }">${ req.headers.referer }/verifyUser/?id=${ user.id }</a> to finish the 
                 registration process and begin using CiviDisc!</p>`,
         
 
