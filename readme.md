@@ -20,5 +20,8 @@ _CiviDisc is a "safe for work" space.  While some topics will be of a controvers
 
  * You can now _copy_ images from a web url into the comment box.  Replies will soon have this feature too!
  * Application now forces HTTPS on every page. 
+ * Topics can be added on the fly with enough rep.
+ * Rich text and embedding of images is allowed on main-level posts.
+ * Comment counts being displayed.
 
 *Live site:* [https://civi-disc.herokuapp.com](https://civi-disc.herokuapp.com)
