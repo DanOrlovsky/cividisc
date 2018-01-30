@@ -80,7 +80,7 @@ module.exports = function (app, passport) {
             })
         })
     })
-    app.get('/verifyUser/:id', (req, res, next) => {
+    app.get('/signup/verifyUser/:id', (req, res, next) => {
         db.User.findOne({ where: { id: req.params.id }}).then(user => {
             db.User.update({ isActive: true}, { where: { id: req.params.id }}).then(() => {
                 return res.render('activated');
