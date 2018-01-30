@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-
+//173.230.140.34
 let smtpConfig = {
     host: "mail.wedotechstuff.com",
     port: 8889,
@@ -21,7 +21,7 @@ function sendVerificationEmail(req, user) {
         text: `Thank you for joining Civi-Disc, ${ user.firstName } ${ user.lastName}.\n
                 Please visit ${ req.protocol }/verifyUser/?id=${ user.Id } to finish the registration process and begin using CiviDisc!`,
         html: `<p>Thank you for joining Civi-Disc, ${ user.firstName } ${ user.lastName}.</p>
-                <p>Please visit <a href="${ req.protocol }/verifyUser/?id=${ user.Id }">${ req.protocol }/verifyUser/?id=${ user.Id }</a> to finish the 
+                <p>Please visit <a href="${ req.headers.referer }/verifyUser/?id=${ user.Id }">${ req.headers.referer }/verifyUser/?id=${ user.Id }</a> to finish the 
                 registration process and begin using CiviDisc!</p>`,
         
 

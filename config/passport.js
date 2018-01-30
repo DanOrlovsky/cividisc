@@ -66,7 +66,7 @@ module.exports = function (passport, user) {
                             firstName: req.body.firstname,
                             lastName: req.body.lastname,
                             displayName: req.body.displayName,
-                            isActive: true,
+                            isActive: false,
                             rep: 0,
                             usePoints: 100,
                             upVotes: 0,
