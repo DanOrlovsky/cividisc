@@ -80,6 +80,13 @@ module.exports = function (app, passport) {
             })
         })
     })
+    app.get('/verifyUser/:id', (req, res, next) => {
+        db.User.findOne({ where: { id: req.params.id }}).then(user => {
+            db.User.update({ isActive: true}, { where: { id: req.params.id }}).then(() => {
+                return res.render('activated');
+            })
+        })
+    });
     app.post('/signup', function (req, res, next) {
         var user = req.body;
         if (user.email === '' || user.password === '' || user.firstname === '' || user.lastname === '' || user.displayName === ''){
