@@ -103,9 +103,11 @@ module.exports = function (app, passport) {
             }
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                emailHelper.sendVerificationEmail(req, user).then(info => {
-                    return res.redirect('/');
-                });
+                db.User.findOne({ where: { email: user.email}}).then(dbUser => {
+                    emailHelper.sendVerificationEmail(req, dbUser).then(info => {
+                        return res.redirect('/');
+                    });
+                })
             })
         })(req, res, next);
     });
