@@ -43,19 +43,6 @@
             <button  id="submit-now" class="btn btn-outline-success">Post</button>
             <script>
                 $(document).ready(function() {
-                    /*$("#submit-now").on("click", function(e) {
-                        e.preventDefault();
-                        var formData = $("#add-item").serializeArray();
-                        formData.push({ comment: $("#comment")});
-                        // action="/posts/add"
-                        $.post({
-                            url: "/posts/add",
-                            data: formData,
-                            success: (response) => {
-
-                            }
-                        })
-                    })*/
                     $("#submit-topic").on("click", function(e) {
                         e.preventDefault();
                         var selectList = $("#topicId");

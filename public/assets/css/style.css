@@ -1,13 +1,17 @@
+html,
 body {
     background-color: #fff;
     /*width: 100vw;*/
     overflow-x: hidden;
+    height: 100%;
+}
+.body-content {
     min-height: 100%;
 }
-
 #page-content {
     margin-top: 100px;
     margin-bottom: 80px;
+    min-height: 100%;
 }
 
 .login-page {
@@ -126,12 +130,25 @@ img {
   height: 32rem;
 }
 
+/*
 .footer {
     position: relative;
     top: 140px;
     bottom: 0;
     width: 100%;
+}*/
+.footer {
+    position: relative;
     background-color: #f5f5f5;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: -150px;
+    height: 150px;
+    border-width: 2px;
+    padding: 15px 15px 15px 15px;
+    bottom: 0;
+    overflow:hidden;
+    clear: both;
 }
 
 .children {
